@@ -9,5 +9,11 @@
     "tell me about",
     "which",
     "whose"
+  ],
+  "Play.voc": [
+    "play",
+    "read",
+    "search",
+    "start"
   ]
 }
