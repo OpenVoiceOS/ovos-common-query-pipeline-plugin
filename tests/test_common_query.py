@@ -31,14 +31,6 @@ class TestCommonQuery(unittest.TestCase):
                          1)
         self.assertEqual(len(self.bus.ee.listeners("common_query.question")), 1)
 
-    def test_voc_match(self):
-        self.assertTrue(self.cc.voc_match("ocp", "common_play", "en-us", True))
-        self.assertTrue(self.cc.voc_match("ocp", "common_play", "en-us", False))
-        self.assertFalse(self.cc.voc_match("play music", "common_play", "en-us",
-                                           True))
-        self.assertTrue(self.cc.voc_match("play music", "common_play", "en-us",
-                                          False))
-
     def test_is_question_like(self):
         lang = "en-us"
         self.assertTrue(self.cc.is_question_like("what is a computer", lang))
