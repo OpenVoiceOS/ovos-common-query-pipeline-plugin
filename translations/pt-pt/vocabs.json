@@ -9,5 +9,11 @@
     "(diz-me|fala-me) sobre",
     "qual",
     "de quem"
+  ],
+  "Play.voc": [
+    "(lê|ler)",
+    "(procura|procurar)",
+    "(reproduz|reproduzir)",
+    "(toca|tocar)"
   ]
 }
