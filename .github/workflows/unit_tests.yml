@@ -53,6 +53,7 @@ jobs:
       - name: Install test dependencies
         run: |
           pip install -r tests/requirements.txt
+          pip install tests/ovos_tskill_fakewiki
       - name: Run unittests
         run: |
           pytest --cov=ovos_commonqa --cov-report=xml ./tests
