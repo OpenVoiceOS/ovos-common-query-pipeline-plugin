@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.1.2a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/0.1.2a1) (2024-10-15)
+## [0.1.3a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/0.1.3a1) (2024-10-15)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/0.1.1...0.1.2a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/0.1.2...0.1.3a1)
 
 **Merged pull requests:**
 
-- allow workshop 1.0.0 [\#4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/4) ([JarbasAl](https://github.com/JarbasAl))
+- es-es/translate [\#7](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/7) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
 
 
 
