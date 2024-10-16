@@ -2,16 +2,18 @@ import time
 from dataclasses import dataclass
 from os.path import dirname
 from threading import Event
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Union
 
+from ovos_bus_client.client import MessageBusClient
 from ovos_bus_client.message import Message
 from ovos_bus_client.session import SessionManager
 from ovos_config.config import Configuration
 from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
-from ovos_plugin_manager.templates.pipeline import IntentMatch, PipelinePlugin
+from ovos_plugin_manager.templates.pipeline import PipelineMatch, PipelineStageMatcher
 from ovos_utils import flatten_list
-from ovos_utils.log import LOG
+from ovos_utils.fakebus import FakeBus
 from ovos_utils.lang import standardize_lang_tag
+from ovos_utils.log import LOG
 from ovos_workshop.app import OVOSAbstractApplication
 
 
@@ -31,12 +33,13 @@ class Query:
     selected_skill: str = ""
 
 
-class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
-    def __init__(self, bus, config=None):
+class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
+    def __init__(self, bus: Optional[Union[MessageBusClient, FakeBus]] = None,
+                 config: Optional[Dict] = None):
         OVOSAbstractApplication.__init__(
             self, bus=bus, skill_id="common_query.openvoiceos",
             resources_dir=f"{dirname(__file__)}")
-        PipelinePlugin.__init__(self, config)
+        PipelineStageMatcher.__init__(self, bus, config)
         self.active_queries: Dict[str, Query] = dict()
 
         self.common_query_skills = []
@@ -88,7 +91,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         # require a "question word"
         return self.voc_match(utterance, "QuestionWord", lang)
 
-    def match(self, utterances: str, lang: str, message: Message) -> Optional[IntentMatch]:
+    def match(self, utterances: List[str], lang: str, message: Message) -> Optional[PipelineMatch]:
         """
         Send common query request and select best response
 
@@ -98,7 +101,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
             lang (str): Language code
             message: Message for session context
         Returns:
-            IntentMatch or None
+            PipelineMatch or None
         """
         lang = standardize_lang_tag(lang)
         # we call flatten in case someone is sending the old style list of tuples
@@ -118,11 +121,10 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
                 message.data["utterance"] = utterance
                 answered, skill_id = self.handle_question(message)
                 if answered:
-                    match = IntentMatch(intent_service='CommonQuery',
-                                        intent_type=True,
-                                        intent_data={},
-                                        skill_id=skill_id,
-                                        utterance=utterance)
+                    match = PipelineMatch(handled=True,
+                                          match_data={},
+                                          skill_id=skill_id,
+                                          utterance=utterance)
                 break
         return match
 
