@@ -11,6 +11,7 @@ from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
 from ovos_plugin_manager.templates.pipeline import IntentMatch, PipelinePlugin
 from ovos_utils import flatten_list
 from ovos_utils.log import LOG
+from ovos_utils.lang import standardize_lang_tag
 from ovos_workshop.app import OVOSAbstractApplication
 
 
@@ -75,6 +76,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         @param lang: language of input
         @return: True if input might be a question to handle here
         """
+        lang = standardize_lang_tag(lang)
         # skip utterances with less than 3 words
         if len(utterance.split(" ")) < 3:
             LOG.debug("utterance has less than 3 words, doesnt look like a question")
@@ -98,6 +100,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         Returns:
             IntentMatch or None
         """
+        lang = standardize_lang_tag(lang)
         # we call flatten in case someone is sending the old style list of tuples
         utterances = flatten_list(utterances)
         match = None
