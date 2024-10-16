@@ -32,7 +32,7 @@ class TestCommonQuery(unittest.TestCase):
         self.assertEqual(len(self.bus.ee.listeners("common_query.question")), 1)
 
     def test_is_question_like(self):
-        lang = "en-us"
+        lang = "en-US"
         self.assertTrue(self.cc.is_question_like("what is a computer", lang))
         self.assertTrue(self.cc.is_question_like("tell me about computers",
                                                  lang))
@@ -142,7 +142,7 @@ class TestCommonQuery(unittest.TestCase):
              'data': {'utterance': 'answer 1',
                       'expect_response': False,
                       'meta': {'skill': 'wiki.test'},
-                      'lang': 'en-us'},
+                      'lang': 'en-US'},
              'context': skill_ans_ctxt},
             # handler complete event
             {'type': 'mycroft.skill.handler.complete',
