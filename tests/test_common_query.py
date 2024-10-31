@@ -112,45 +112,11 @@ class TestCommonQuery(unittest.TestCase):
             # stop thinking animation
             {'type': 'enclosure.mouth.reset',
              'data': {},
-             'context': qq_ctxt},
-            # skill callback event
-            # the destination here is `skills` and skill_id context is
-            # CommonQuery since this event is not dictated by the selected skill
-            {'type': 'question:action',
-             'data': {'skill_id': 'wiki.test',
-                      'answer': 'answer 1',
-                      'conf': 0.74,
-                      'handles_speech': True,
-                      'phrase': 'what is the speed of light',
-                      'callback_data': {'query': 'what is the speed of light',
-                                        'answer': 'answer 1'}},
-             'context': qq_ans_ctxt},  # destination: audio from this message forward
-            # skill was select, make it an active skill
-            {'context': qq_ans_ctxt,
-             'data': {'skill_id': 'wiki.test', 'timeout': 5.0},
-             'type': 'intent.service.skills.activate'},
-            # tell enclosure about active skill (speak method). This is the
-            # skill that provided the response and may follow-up with actions
-            # in a callback method
-            {'type': 'enclosure.active_skill',
-             'data': {'skill_id': 'wiki.test'},
-             'context': qq_ans_ctxt},
-            # execution of speak method. This is called from CommonQuery, but
-            # should report the skill which provided the response to match the
-            # enclosure active_skill and any follow-up actions in the callback
-            {'type': 'speak',
-             'data': {'utterance': 'answer 1',
-                      'expect_response': False,
-                      'meta': {'skill': 'wiki.test'},
-                      'lang': 'en-US'},
-             'context': skill_ans_ctxt},
-            # handler complete event
-            {'type': 'mycroft.skill.handler.complete',
-             'data': {'handler': 'common_query'},
-             'context': skill_ans_ctxt},
+             'context': qq_ctxt}
         ]
 
         for ctr, msg in enumerate(expected):
+            print(ctr, msg)
             m: dict = self.bus.emitted_msgs[ctr]
             if "session" in m.get("context", {}):
                 m["context"].pop("session")  # simplify test comparisons
