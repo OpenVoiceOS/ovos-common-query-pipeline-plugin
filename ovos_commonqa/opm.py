@@ -122,7 +122,7 @@ class CommonQAService(ConfidenceMatcherPipeline, OVOSAbstractApplication):
                 message.data["utterance"] = utterance
                 answered, query = self.handle_question(message)
                 if answered:
-                    match = IntentHandlerMatch(natch_type='question:action',
+                    match = IntentHandlerMatch(match_type='question:action',
                                                match_data=query.callback_data,
                                                skill_id=query.selected_skill,
                                                utterance=utterance)
