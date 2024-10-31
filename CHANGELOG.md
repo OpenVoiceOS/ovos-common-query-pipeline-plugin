@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.0.0a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.0.0a1) (2024-10-16)
+## [1.0.1a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.0.1a1) (2024-10-31)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/0.1.4...1.0.0a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.0...1.0.1a1)
 
-**Breaking changes:**
+**Merged pull requests:**
 
-- feat:pipeline plugin factory [\#11](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/11) ([JarbasAl](https://github.com/JarbasAl))
+- fix:IntentHandlerMatch [\#14](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/14) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
