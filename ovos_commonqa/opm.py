@@ -2,14 +2,14 @@ import time
 from dataclasses import dataclass
 from os.path import dirname
 from threading import Event
-from typing import Dict, Optional, List, Union
+from typing import Dict, Optional, List, Union, Any, Tuple
 
 from ovos_bus_client.client import MessageBusClient
 from ovos_bus_client.message import Message
 from ovos_bus_client.session import SessionManager
 from ovos_config.config import Configuration
 from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
-from ovos_plugin_manager.templates.pipeline import PipelineMatch, PipelineStageMatcher
+from ovos_plugin_manager.templates.pipeline import ConfidenceMatcherPipeline, IntentHandlerMatch
 from ovos_utils import flatten_list
 from ovos_utils.fakebus import FakeBus
 from ovos_utils.lang import standardize_lang_tag
@@ -31,15 +31,16 @@ class Query:
     completed: Event = Event()
     answered: bool = False
     selected_skill: str = ""
+    callback_data: Optional[Dict[str, Any]] = None
 
 
-class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
+class CommonQAService(ConfidenceMatcherPipeline, OVOSAbstractApplication):
     def __init__(self, bus: Optional[Union[MessageBusClient, FakeBus]] = None,
                  config: Optional[Dict] = None):
         OVOSAbstractApplication.__init__(
             self, bus=bus, skill_id="common_query.openvoiceos",
             resources_dir=f"{dirname(__file__)}")
-        PipelineStageMatcher.__init__(self, bus, config)
+        ConfidenceMatcherPipeline.__init__(self, bus, config)
         self.active_queries: Dict[str, Query] = dict()
 
         self.common_query_skills = []
@@ -72,7 +73,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             self.common_query_skills.append(message.data["skill_id"])
             LOG.debug("Detected CommonQuery skill: " + message.data["skill_id"])
 
-    def is_question_like(self, utterance: str, lang: str):
+    def is_question_like(self, utterance: str, lang: str) -> bool:
         """
         Check if the input utterance looks like a question for CommonQuery
         @param utterance: user input to evaluate
@@ -91,7 +92,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         # require a "question word"
         return self.voc_match(utterance, "QuestionWord", lang)
 
-    def match(self, utterances: List[str], lang: str, message: Message) -> Optional[PipelineMatch]:
+    def match(self, utterances: List[str], lang: str, message: Message) -> Optional[IntentHandlerMatch]:
         """
         Send common query request and select best response
 
@@ -119,16 +120,16 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             if self.is_question_like(utterance, lang):
                 message.data["lang"] = lang  # only used for speak method
                 message.data["utterance"] = utterance
-                answered, skill_id = self.handle_question(message)
+                answered, query = self.handle_question(message)
                 if answered:
-                    match = PipelineMatch(handled=True,
-                                          match_data={},
-                                          skill_id=skill_id,
-                                          utterance=utterance)
+                    match = IntentHandlerMatch(natch_type='question:action',
+                                               match_data=query.callback_data,
+                                               skill_id=query.selected_skill,
+                                               utterance=utterance)
                 break
         return match
 
-    def handle_question(self, message: Message):
+    def handle_question(self, message: Message) -> Tuple[bool, Query]:
         """
         Send the phrase to CommonQuerySkills and prepare for handling replies.
         """
@@ -161,7 +162,6 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 if not query.completed.is_set():
                     LOG.debug(f"Session Timeout gathering responses ({query.session_id})")
                     LOG.warning(f"Timed out getting responses for: {query.query}")
-                    timeout = True
                 break
 
         self._query_timeout(timeout_msg)
@@ -171,7 +171,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         self.active_queries.pop(sess.session_id)
         LOG.debug(f"answered={answered}|"
                   f"remaining active_queries={len(self.active_queries)}")
-        return answered, query.selected_skill
+        return answered, query
 
     def handle_query_response(self, message: Message):
         search_phrase = message.data['phrase']
@@ -280,8 +280,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
 
             LOG.info('Handling with: ' + str(best['skill_id']))
             query.selected_skill = best["skill_id"]
-            response_data = {**best, "phrase": search_phrase}
-            self.bus.emit(message.reply('question:action', data=response_data))
+            query.callback_data = {**best, "phrase": search_phrase}
             query.answered = True
         else:
             query.answered = False
