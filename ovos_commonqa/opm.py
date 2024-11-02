@@ -35,7 +35,7 @@ class Query:
 
     @property
     def response_confidence(self) -> float:
-        return max(self.replies, key=lambda k: k.get("conf", 0)) if self.replies else 0.0
+        return max((k.get("conf", 0) for k in self.replies), default=0.0)
 
 
 class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
