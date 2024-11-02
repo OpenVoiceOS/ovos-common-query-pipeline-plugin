@@ -1,17 +1,17 @@
 {
   "QuestionWord.voc": [
     "hvem",
-    null,
-    null,
-    null,
+    "hvad",
+    "hvordan",
+    "hvorfor",
     "hvornår",
-    null,
+    "spørgsmål",
     "fortæl mig om",
-    null,
-    null
+    "hvilke",
+    "hvis"
   ],
   "Play.voc": [
-    null,
+    "spil",
     "læs",
     "søg",
     "start"
