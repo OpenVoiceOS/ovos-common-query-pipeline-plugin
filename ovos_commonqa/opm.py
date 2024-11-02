@@ -9,7 +9,7 @@ from ovos_bus_client.message import Message
 from ovos_bus_client.session import SessionManager
 from ovos_config.config import Configuration
 from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
-from ovos_plugin_manager.templates.pipeline import ConfidenceMatcherPipeline, IntentHandlerMatch
+from ovos_plugin_manager.templates.pipeline import PipelineStageMatcher, IntentHandlerMatch
 from ovos_utils import flatten_list
 from ovos_utils.fakebus import FakeBus
 from ovos_utils.lang import standardize_lang_tag
@@ -33,14 +33,18 @@ class Query:
     selected_skill: str = ""
     callback_data: Optional[Dict[str, Any]] = None
 
+    @property
+    def response_confidence(self) -> float:
+        return max((k.get("conf", 0) for k in self.replies), default=0.0)
 
-class CommonQAService(ConfidenceMatcherPipeline, OVOSAbstractApplication):
+
+class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
     def __init__(self, bus: Optional[Union[MessageBusClient, FakeBus]] = None,
                  config: Optional[Dict] = None):
         OVOSAbstractApplication.__init__(
             self, bus=bus, skill_id="common_query.openvoiceos",
             resources_dir=f"{dirname(__file__)}")
-        ConfidenceMatcherPipeline.__init__(self, bus, config)
+        PipelineStageMatcher.__init__(self, bus, config)
         self.active_queries: Dict[str, Query] = dict()
 
         self.common_query_skills = []
@@ -102,7 +106,7 @@ class CommonQAService(ConfidenceMatcherPipeline, OVOSAbstractApplication):
             lang (str): Language code
             message: Message for session context
         Returns:
-            PipelineMatch or None
+            IntentHandlerMatch or None
         """
         lang = standardize_lang_tag(lang)
         # we call flatten in case someone is sending the old style list of tuples
@@ -121,7 +125,8 @@ class CommonQAService(ConfidenceMatcherPipeline, OVOSAbstractApplication):
                 message.data["lang"] = lang  # only used for speak method
                 message.data["utterance"] = utterance
                 answered, query = self.handle_question(message)
-                if answered:
+                if answered and query.response_confidence >= self.config.get("min_conf", 0.01):
+                    query.callback_data["conf"] = query.response_confidence
                     match = IntentHandlerMatch(match_type='question:action',
                                                match_data=query.callback_data,
                                                skill_id=query.selected_skill,
