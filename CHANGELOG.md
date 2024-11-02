@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.0.3a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.0.3a1) (2024-11-02)
+## [1.0.4a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.0.4a1) (2024-11-02)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.2...1.0.3a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.3...1.0.4a1)
 
 **Merged pull requests:**
 
-- fix: correct pipeline parent class [\#18](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/18) ([JarbasAl](https://github.com/JarbasAl))
+- da-dk/translate [\#20](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/20) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
 
 
 
