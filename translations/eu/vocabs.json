@@ -1,16 +1,19 @@
 {
-    "QuestionWord.voc": [
-        "nola",
-        "zer",
-        "noiz",
-        "zein",
-        "(nor|nork)",
-        "zergatik"
-    ],
-    "Play.voc": [
-        "erreproduzitu",
-        "irakurri",
-        "bilatu",
-        "hasi"
-    ]
+  "QuestionWord.voc": [
+    "nola",
+    "zer",
+    "noiz",
+    "zein",
+    "(nor|nork)",
+    "zergatik",
+    "esaidazu",
+    "zeina",
+    "noren"
+  ],
+  "Play.voc": [
+    "erreproduzitu",
+    "irakurri",
+    "bilatu",
+    "hasi"
+  ]
 }
