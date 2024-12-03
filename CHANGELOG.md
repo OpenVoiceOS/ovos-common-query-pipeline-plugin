@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.0.6a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.0.6a1) (2024-11-23)
+## [1.0.7a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.0.7a1) (2024-12-03)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.5...1.0.6a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.6...1.0.7a1)
 
 **Merged pull requests:**
 
-- Add Catalan translation [\#24](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/24) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+- import galician + basque translations [\#26](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/26) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
