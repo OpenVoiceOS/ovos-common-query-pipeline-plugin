@@ -1,6 +1,6 @@
 {
   "QuestionWord.voc": [
-    null,
+    "quien",
     "qué",
     "cómo",
     "por qué",
@@ -11,7 +11,7 @@
     "cuyo"
   ],
   "Play.voc": [
-    null,
+    "(tocar|toca|jugar)",
     "leer",
     "buscar",
     "comenzar"
