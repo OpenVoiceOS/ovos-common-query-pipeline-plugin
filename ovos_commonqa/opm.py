@@ -277,8 +277,9 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 answers = {m["answer"]: m for m in ties}
                 if self.reranker is None:
                     LOG.debug("No ReRanker available, selecting randomly")
-                    # random pick, no re-ranker available
-                    best_ans = list(answers.keys())[0]
+                    # semi-random pick, no re-ranker available
+                    # ASSUMPTION: if skill took longer to process query, answer is more accurate
+                    best_ans = list(answers.keys())[-1]
                     best = answers[best_ans]
                 else:
                     reranked = self.reranker.rerank(query.query,
