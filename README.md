@@ -2,6 +2,9 @@
 
 The **OVOS Common Query Framework** is designed to answer questions by gathering answers from several skills and selecting the best one
 
+> ⚠️ Common Query will only be as fast as your slowest CommonQuerySkill, latency will vary depending on which skills you install
+
+
 ## Features
 
 - **Utterance Query Type Detection**: 🧐:  
@@ -50,7 +53,7 @@ Below is an example configuration to set up a reranker:
 ### Notes:
 - **Reranker Plugin**: A reranker plugin is optional. You need to install it explicitly for the framework to use it.
 - **Model Choice**: The example uses the `ovos-flashrank-reranker-plugin` with `ms-marco-TinyBERT-L-2-v2` model, but other plugins/models can be specified depending on your use case and performance requirements.
-- **Performance Consideration**: Enabling reranking, particularly on devices with limited resources (e.g., Raspberry Pi), may introduce additional latency (up to 1 second).
+- **Performance Consideration**: Enabling reranking, particularly on devices with limited resources (e.g., Raspberry Pi), may introduce additional latency.
 
 ## Performance Impact
 
