@@ -271,36 +271,37 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 ties.append(response)
 
         if best:
-            if len(ties) > 1:
-                tied_ids = [m["skill_id"] for m in ties]
+            tied_ids = [m["skill_id"] for m in ties]
+            if len(tied_ids) > 1:
                 LOG.debug(f"Tied skills: {tied_ids}")
-                answers = {m["answer"]: m for m in ties}
-                if self.reranker is None:
+            answers = {m["answer"]: m for m in ties}
+            if self.reranker is None:
+                if len(tied_ids) > 1:
                     LOG.debug("No ReRanker available, selecting randomly")
-                    # semi-random pick, no re-ranker available
-                    # ASSUMPTION: if skill took longer to process query, answer is more accurate
-                    best_ans = list(answers.keys())[-1]
+                # semi-random pick, no re-ranker available
+                # ASSUMPTION: if skill took longer to process query, answer is more accurate
+                best_ans = list(answers.keys())[-1]
+                best = answers[best_ans]
+            else:
+                reranked = self.reranker.rerank(query.query,
+                                                list(answers.keys()),
+                                                lang=query.lang)
+                if self._min_reranker_score is None:
+                    # by default not set, the optimal value is reranker plugin specific
+                    candidates = reranked
+                else:
+                    candidates = [ans for ans in reranked if ans[0] >= self._min_reranker_score]
+                    for score, ans in [r for r in reranked if r not in candidates]:
+                        LOG.debug(f"ReRanker discarded low confidence answer: {score} - {answers[ans]}")
+
+                for score, ans in candidates:
+                    LOG.info(f"ReRanker score: {score} - {answers[ans]}")
+
+                if candidates:
+                    best_ans = candidates[0][1]
                     best = answers[best_ans]
                 else:
-                    reranked = self.reranker.rerank(query.query,
-                                                    list(answers.keys()),
-                                                    lang=query.lang)
-                    if self._min_reranker_score is None:
-                        # by default not set, the optimal value is reranker plugin specific
-                        candidates = reranked
-                    else:
-                        candidates = [ans for ans in reranked if ans[0] >= self._min_reranker_score]
-                        for score, ans in [r for r in reranked if r not in candidates]:
-                            LOG.debug(f"ReRanker discarded low confidence answer: {score} - {answers[ans]}")
-
-                    for score, ans in candidates:
-                        LOG.info(f"ReRanker score: {score} - {answers[ans]}")
-
-                    if candidates:
-                        best_ans = candidates[0][1]
-                        best = answers[best_ans]
-                    else:
-                        best = None
+                    best = None
 
             if best is not None:
                 LOG.info('Handling with: ' + str(best['skill_id']))
