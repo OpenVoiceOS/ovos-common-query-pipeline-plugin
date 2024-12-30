@@ -67,7 +67,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 LOG.info("No CommonQuery ReRanker loaded!")
         except Exception as e:
             LOG.error(f"Failed to load ReRanker plugin: {e}")
-        self.ignore_scores = config.get("ignore_skill_scores", False) and self.reranker is not None
+        self.ignore_scores = config.get("ignore_skill_scores", True) and self.reranker is not None
         self.add_event('question:query.response', self.handle_query_response)
         self.add_event('common_query.question', self.handle_question)
         self.add_event('ovos.common_query.pong', self.handle_skill_pong)
