@@ -19,8 +19,15 @@ The **OVOS Common Query Framework** is designed to answer questions by gathering
 - **Timeout for Late Answers** ⏱️:  
   The system will stop waiting for answers after 2 seconds. Any response received after this time will be ignored, ensuring an upper time limit for query handling.
 
-## Configuration
+## Install
 
+This plugin usually ships with ovos-core by default and should not need to be explicitly installed
+
+```bash
+pip install ovos-common-query-pipeline-plugin
+```
+
+## Configuration
 
 ### Reranker (Optional)
 Rerankers, also referred to as **MultipleChoiceSolvers**, are optional and need to be explicitly installed. These are used to rank and select the most relevant response from multiple common query skills (e.g., Wolfram Alpha, Wikipedia).
@@ -30,10 +37,12 @@ Below is an example configuration to set up a reranker:
 ```json
 "intents": {
     "common_query": {
-      "reranker": "ovos-flashrank-reranker-plugin",
-      "ovos-flashrank-reranker-plugin": {
-        "model": "ms-marco-TinyBERT-L-2-v2"
-      }
+        "min_self_confidence": 0.5,
+        "min_reranker_score": 0.5,
+        "reranker": "ovos-flashrank-reranker-plugin",
+        "ovos-flashrank-reranker-plugin": {
+          "model": "ms-marco-TinyBERT-L-2-v2"
+        }
     }
 }
 ```
