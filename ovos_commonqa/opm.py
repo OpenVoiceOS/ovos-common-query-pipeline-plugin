@@ -49,11 +49,13 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
 
         self.common_query_skills = []
         config = config or Configuration().get('intents', {}).get("common_query") or dict()
-        self._extension_time = config.get('extension_time') or 3
+        self._extension_time = config.get('extension_time') or 1
         CommonQAService._EXTENSION_TIME = self._extension_time
-        self._min_wait = config.get('min_response_wait') or 2
-        self._max_time = config.get('max_response_wait') or 6  # regardless of extensions
-        reranker_module = config.get("reranker", "ovos-choice-solver-bm25")  # default to BM25 from ovos-classifiers
+        self._min_wait = config.get('min_response_wait') or 1
+        self._max_time = config.get('max_response_wait') or 4  # regardless of extensions
+        self._min_self_confidence = config.get('min_self_confidence', 0.5)
+        self._min_reranker_score = config.get('min_reranker_score')
+        reranker_module = config.get("reranker", "ovos-flashrank-reranker-plugin")
         self.reranker = None
         try:
             for name, plug in find_multiple_choice_solver_plugins().items():
@@ -65,7 +67,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 LOG.info("No CommonQuery ReRanker loaded!")
         except Exception as e:
             LOG.error(f"Failed to load ReRanker plugin: {e}")
-        self.ignore_scores = config.get("ignore_skill_scores", False) and self.reranker is not None
+        self.ignore_scores = config.get("ignore_skill_scores", True) and self.reranker is not None
         self.add_event('question:query.response', self.handle_query_response)
         self.add_event('common_query.question', self.handle_question)
         self.add_event('ovos.common_query.pong', self.handle_skill_pong)
@@ -121,6 +123,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             LOG.info(f"Gathering answers from skills: {self.common_query_skills}")
 
         for utterance in utterances:
+            LOG.debug(f"is question: {self.is_question_like(utterance, lang)}")
             if self.is_question_like(utterance, lang):
                 message.data["lang"] = lang  # only used for speak method
                 message.data["utterance"] = utterance
@@ -251,6 +254,9 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         best = None
         ties = []
         for response in query.replies:
+            if response['conf'] < self._min_self_confidence:
+                LOG.debug(f"Discarding {response['skill_id']} low confidence answer: {response['conf']} - {response['answer']}")
+                continue
             if response["skill_id"] in sess.blacklisted_skills:
                 continue
             if not self.ignore_scores:
@@ -265,28 +271,46 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 ties.append(response)
 
         if best:
-            if len(ties) > 1:
-                tied_ids = [m["skill_id"] for m in ties]
+            tied_ids = [m["skill_id"] for m in ties]
+            if len(tied_ids) > 1:
                 LOG.debug(f"Tied skills: {tied_ids}")
-                answers = {m["answer"]: m for m in ties}
-                if self.reranker is None:
+            answers = {m["answer"]: m for m in ties}
+            if self.reranker is None:
+                if len(tied_ids) > 1:
                     LOG.debug("No ReRanker available, selecting randomly")
-                    # random pick, no re-ranker available
-                    best_ans = list(answers.keys())[0]
-                else:
-                    reranked = self.reranker.rerank(query.query,
-                                                    list(answers.keys()),
-                                                    lang=query.lang)
-                    for score, ans in reranked:
-                        LOG.info(f"ReRanked score: {score} - {answers[ans]}")
-                    best_ans = reranked[0][1]
-
+                # semi-random pick, no re-ranker available
+                # ASSUMPTION: if skill took longer to process query, answer is more accurate
+                best_ans = list(answers.keys())[-1]
                 best = answers[best_ans]
+            else:
+                reranked = self.reranker.rerank(query.query,
+                                                list(answers.keys()),
+                                                lang=query.lang)
+                if self._min_reranker_score is None:
+                    # by default not set, the optimal value is reranker plugin specific
+                    candidates = reranked
+                else:
+                    candidates = [ans for ans in reranked if ans[0] >= self._min_reranker_score]
+                    for score, ans in [r for r in reranked if r not in candidates]:
+                        LOG.debug(f"ReRanker discarded low confidence answer: {score} - {answers[ans]}")
 
-            LOG.info('Handling with: ' + str(best['skill_id']))
-            query.selected_skill = best["skill_id"]
-            query.callback_data = {**best, "phrase": search_phrase}
-            query.answered = True
+                for score, ans in candidates:
+                    LOG.info(f"ReRanker score: {score} - {answers[ans]}")
+
+                if candidates:
+                    best_ans = candidates[0][1]
+                    best = answers[best_ans]
+                else:
+                    best = None
+
+            if best is not None:
+                LOG.info('Handling with: ' + str(best['skill_id']))
+                query.selected_skill = best["skill_id"]
+                query.callback_data = {**best, "phrase": search_phrase}
+                query.answered = True
+            else:
+                LOG.debug("No good answers from skills, not answering question")
+                query.answered = False
         else:
             query.answered = False
         query.completed.set()
