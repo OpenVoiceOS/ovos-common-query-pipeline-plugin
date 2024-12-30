@@ -49,10 +49,10 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
 
         self.common_query_skills = []
         config = config or Configuration().get('intents', {}).get("common_query") or dict()
-        self._extension_time = config.get('extension_time') or 3
+        self._extension_time = config.get('extension_time') or 1
         CommonQAService._EXTENSION_TIME = self._extension_time
-        self._min_wait = config.get('min_response_wait') or 2
-        self._max_time = config.get('max_response_wait') or 6  # regardless of extensions
+        self._min_wait = config.get('min_response_wait') or 1
+        self._max_time = config.get('max_response_wait') or 4  # regardless of extensions
         self._min_self_confidence = config.get('min_self_confidence', 0.5)
         self._min_reranker_score = config.get('min_reranker_score')
         reranker_module = config.get("reranker", "ovos-flashrank-reranker-plugin")
