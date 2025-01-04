@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.0a2) (2025-01-04)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.0a1...1.1.0a2)
+
+**Merged pull requests:**
+
+- refactor: simplify cq messages [\#34](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/34) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.1.0a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.0a1) (2024-12-30)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.8...1.1.0a1)
