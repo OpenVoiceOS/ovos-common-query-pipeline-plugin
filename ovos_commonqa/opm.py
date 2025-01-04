@@ -48,6 +48,8 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         self.active_queries: Dict[str, Query] = dict()
 
         self.common_query_skills = []
+        self._deprecated_skills = []
+
         config = config or Configuration().get('intents', {}).get("common_query") or dict()
         self._extension_time = config.get('extension_time') or 1
         CommonQAService._EXTENSION_TIME = self._extension_time
@@ -78,6 +80,11 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         if message.data["skill_id"] not in self.common_query_skills:
             self.common_query_skills.append(message.data["skill_id"])
             LOG.debug("Detected CommonQuery skill: " + message.data["skill_id"])
+            if message.data.get("is_classic_cq", True):
+                deprecated_id = message.data["skill_id"]
+                LOG.warning(f"{deprecated_id} is using the deprecated CommonQuery skill class, "
+                            f"it might stop working in the near future")
+                self._deprecated_skills.append(deprecated_id)
 
     def is_question_like(self, utterance: str, lang: str) -> bool:
         """
@@ -130,7 +137,8 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 answered, query = self.handle_question(message)
                 if answered and query.response_confidence >= self.config.get("min_conf", 0.01):
                     query.callback_data["conf"] = query.response_confidence
-                    match = IntentHandlerMatch(match_type='question:action',
+                    old_style = query.selected_skill in self._deprecated_skills
+                    match = IntentHandlerMatch(match_type='question:action' if old_style else f'question:action.{query.selected_skill}',
                                                match_data=query.callback_data,
                                                skill_id=query.selected_skill,
                                                utterance=utterance)
