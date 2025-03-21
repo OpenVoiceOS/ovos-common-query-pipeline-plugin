@@ -1,0 +1,19 @@
+{
+  "QuestionWord.voc": [
+    "quen",
+    "que",
+    "como",
+    "por que",
+    "cando",
+    "pregunta",
+    "fálame (de|sobre)",
+    "(cal|cales)",
+    "de quen"
+  ],
+  "Play.voc": [
+    "reproducir",
+    "ler",
+    "(procurar|buscar)",
+    "(iniciar|comezar)"
+  ]
+}
