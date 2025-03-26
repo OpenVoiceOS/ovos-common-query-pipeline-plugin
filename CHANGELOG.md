@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.1a2) (2025-03-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.1a1...1.1.1a2)
+
+**Merged pull requests:**
+
+- Fix/galician [\#39](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/39) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.1.1a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.1a1) (2025-03-26)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.0...1.1.1a1)
