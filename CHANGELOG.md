@@ -1,25 +1,21 @@
 # Changelog
 
-## [1.1.0a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.0a2) (2025-01-04)
+## [1.1.1a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.1a2) (2025-03-26)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.0a1...1.1.0a2)
-
-**Merged pull requests:**
-
-- refactor: simplify cq messages [\#34](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/34) ([JarbasAl](https://github.com/JarbasAl))
-
-## [1.1.0a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.0a1) (2024-12-30)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.0.8...1.1.0a1)
-
-**Implemented enhancements:**
-
-- config: discard low conf answers [\#31](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/issues/31)
-- better default reranker [\#6](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/issues/6)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.1a1...1.1.1a2)
 
 **Merged pull requests:**
 
-- feat: reranker filtering [\#32](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/32) ([JarbasAl](https://github.com/JarbasAl))
+- Fix/galician [\#39](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/39) ([JarbasAl](https://github.com/JarbasAl))
+
+## [1.1.1a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.1a1) (2025-03-26)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.0...1.1.1a1)
+
+**Merged pull requests:**
+
+- Intents [\#37](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/37) ([JarbasAl](https://github.com/JarbasAl))
+- Galician translation [\#36](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/36) ([daniferlop](https://github.com/daniferlop))
 
 
 
