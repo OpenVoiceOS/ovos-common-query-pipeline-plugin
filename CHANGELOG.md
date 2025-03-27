@@ -1,21 +1,12 @@
 # Changelog
 
-## [1.1.1a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.1a2) (2025-03-26)
+## [1.1.2a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.2a1) (2025-03-27)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.1a1...1.1.1a2)
-
-**Merged pull requests:**
-
-- Fix/galician [\#39](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/39) ([JarbasAl](https://github.com/JarbasAl))
-
-## [1.1.1a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.1a1) (2025-03-26)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.0...1.1.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.1...1.1.2a1)
 
 **Merged pull requests:**
 
-- Intents [\#37](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/37) ([JarbasAl](https://github.com/JarbasAl))
-- Galician translation [\#36](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/36) ([daniferlop](https://github.com/daniferlop))
+- fix: catalan [\#41](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/41) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
