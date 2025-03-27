@@ -153,7 +153,8 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         sess = SessionManager.get(message)
         query = Query(session_id=sess.session_id, query=utt, lang=sess.lang,
                       replies=[], extensions=[],
-                      query_time=time.time(), timeout_time=time.time() + self._max_time,
+                      query_time=time.time(),
+                      timeout_time=time.time() + self._max_time,
                       responses_gathered=Event(), completed=Event(),
                       answered=False,
                       queried_skills=[s for s in sess.blacklisted_skills
@@ -163,7 +164,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         self.active_queries[sess.session_id] = query
         self.enclosure.mouth_think()
 
-        LOG.info(f'Searching for {utt}')
+        LOG.info(f"Searching for '{utt}' with max search time: {self._max_time}s")
         # Send the query to anyone listening for them
         msg = message.reply('question:query', data={'phrase': utt})
         if "skill_id" not in msg.context:
