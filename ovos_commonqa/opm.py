@@ -56,7 +56,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         self._min_wait = config.get('min_response_wait') or 1
         self._max_time = config.get('max_response_wait') or 4  # regardless of extensions
         self._min_self_confidence = config.get('min_self_confidence', 0.5)
-        self._min_reranker_score = config.get('min_reranker_score')
+        self._min_reranker_score = config.get('min_reranker_score', 0.2)
         reranker_module = config.get("reranker", "ovos-flashrank-reranker-plugin")
         self.reranker = None
         try:
@@ -201,7 +201,8 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             LOG.debug(f"ignoring match, skill_id '{skill_id}' blacklisted by Session '{sess.session_id}'")
             return
 
-        query = self.active_queries.get(SessionManager.get(message).session_id)
+        sess_id = SessionManager.get(message).session_id
+        query = self.active_queries.get(sess_id)
         if not query:
             LOG.warning(f"Late answer received from {skill_id}, no active query for: {search_phrase}")
             return
@@ -219,8 +220,8 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             if answer:
                 LOG.info(f'Answer from {skill_id}')
                 query.replies.append(message.data)
-
-            query.queried_skills.append(skill_id)
+                if skill_id not in query.queried_skills:
+                    query.queried_skills.append(skill_id)
 
             # Remove the skill from list of timeout extensions
             if skill_id in query.extensions:
@@ -231,16 +232,6 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             if self.common_query_skills and set(query.queried_skills) == set(self.common_query_skills):
                 LOG.debug("All skills answered")
                 query.responses_gathered.set()
-            else:
-                time_to_wait = (query.timeout_time - time.time())
-                if time_to_wait > 0:
-                    LOG.debug(f"Waiting up to {time_to_wait}s for other skills")
-                    query.responses_gathered.wait(time_to_wait)
-
-                # not waiting for any more skills
-                if not query.extensions and not query.responses_gathered.is_set():
-                    LOG.debug(f"Exiting early, no more skills to wait for session ({query.session_id})")
-                    query.responses_gathered.set()
 
     def _query_timeout(self, message: Message):
         """
@@ -280,7 +271,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 ties.append(response)
 
         if best:
-            tied_ids = [m["skill_id"] for m in ties]
+            tied_ids = set(m["skill_id"] for m in ties)
             if len(tied_ids) > 1:
                 LOG.debug(f"Tied skills: {tied_ids}")
             answers = {m["answer"]: m for m in ties}
