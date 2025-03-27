@@ -24,7 +24,7 @@ class Query:
     lang: str
     replies: list = None
     extensions: list = None
-    queried_skills: list = None
+    answered_skills: list = None
     query_time: float = 0
     timeout_time: float = 0
     responses_gathered: Event = Event()
@@ -153,17 +153,18 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         sess = SessionManager.get(message)
         query = Query(session_id=sess.session_id, query=utt, lang=sess.lang,
                       replies=[], extensions=[],
-                      query_time=time.time(), timeout_time=time.time() + self._max_time,
+                      query_time=time.time(),
+                      timeout_time=time.time() + self._max_time,
                       responses_gathered=Event(), completed=Event(),
                       answered=False,
-                      queried_skills=[s for s in sess.blacklisted_skills
-                                      if s in self.common_query_skills])  # dont wait for these
+                      answered_skills=[s for s in sess.blacklisted_skills
+                                       if s in self.common_query_skills])  # dont wait for these
         assert query.responses_gathered.is_set() is False
         assert query.completed.is_set() is False
         self.active_queries[sess.session_id] = query
         self.enclosure.mouth_think()
 
-        LOG.info(f'Searching for {utt}')
+        LOG.info(f"Searching for '{utt}' with max search time: {self._max_time}s")
         # Send the query to anyone listening for them
         msg = message.reply('question:query', data={'phrase': utt})
         if "skill_id" not in msg.context:
@@ -218,8 +219,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
             if answer:
                 LOG.info(f'Answer from {skill_id}')
                 query.replies.append(message.data)
-
-            query.queried_skills.append(skill_id)
+                query.answered_skills.append(skill_id)
 
             # Remove the skill from list of timeout extensions
             if skill_id in query.extensions:
@@ -227,7 +227,7 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
                 query.extensions.remove(skill_id)
 
             # if all skills answered, stop searching
-            if self.common_query_skills and set(query.queried_skills) == set(self.common_query_skills):
+            if self.common_query_skills and set(query.answered_skills) == set(self.common_query_skills):
                 LOG.debug("All skills answered")
                 query.responses_gathered.set()
             else:
