@@ -1,4 +1,8 @@
 {
+  "Weather.voc": [
+    "(tempo|clima)",
+    "(metereologia|metereológica)"
+  ],
   "QuestionWord.voc": [
     "quem",
     "(quê|o que|que é)",

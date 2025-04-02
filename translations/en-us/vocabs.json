@@ -1,4 +1,8 @@
 {
+  "Weather.voc": [
+    "weather",
+    "meteorology"
+  ],
   "QuestionWord.voc": [
     "who",
     "what",
