@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.3a2) (2025-04-02)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.3a1...1.1.3a2)
+
+**Merged pull requests:**
+
+- adding German translations for new intents [\#45](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/45) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+
 ## [1.1.3a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.3a1) (2025-03-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.2...1.1.3a1)
