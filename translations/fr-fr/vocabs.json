@@ -1,6 +1,7 @@
 {
   "Weather.voc": [
-    "temps"
+    "temps",
+    "météorologie"
   ],
   "QuestionWord.voc": [
     "qui",
@@ -11,7 +12,20 @@
     "qu'est-ce que",
     "dis m'en plus au sujet",
     "quel",
-    "dont"
+    "dont",
+    "Parle-moi de",
+    "Rechercher",
+    "informations sur",
+    "informations sur",
+    "trouve des informations",
+    "trouve des informations",
+    "trouve les détails",
+    "détails sur",
+    "expliquer",
+    "peux-tu",
+    "est-ce possible",
+    "est-ce que ça",
+    "est-ce que c'est"
   ],
   "Play.voc": [
     "cherche",
