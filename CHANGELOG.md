@@ -1,12 +1,12 @@
 # Changelog
 
-## [1.1.4a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.4a1) (2025-04-02)
+## [1.1.5a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.5a1) (2025-04-06)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.3...1.1.4a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.4...1.1.5a1)
 
 **Merged pull requests:**
 
-- Fix/dont match weather [\#47](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/47) ([JarbasAl](https://github.com/JarbasAl))
+- Missing translation [\#49](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/49) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
 
 
 
