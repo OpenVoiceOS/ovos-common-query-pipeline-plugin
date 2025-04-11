@@ -1,4 +1,15 @@
 {
+  "MiscBlacklist.voc": [
+    "what time",
+    "is it",
+    "can you",
+    "you do",
+    "skills",
+    "this afternoon",
+    "right now",
+    "happened in the world",
+    "what's new"
+  ],
   "Weather.voc": [
     "weather",
     "meteorology"

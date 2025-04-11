@@ -3,6 +3,14 @@
     "temps",
     "(metereologia|meteorològiques)"
   ],
+  "MiscBlacklist.voc": [
+    "sobre el que fa",
+    "skills",
+    "aquesta tarda",
+    "ara mateix",
+    "passat al món",
+    "que hi ha de nou"
+  ],
   "QuestionWord.voc": [
     "qui",
     "què",
