@@ -105,6 +105,9 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         if self.voc_match(utterance, "Weather", lang):
             LOG.debug("utterance has 'weather' keywords, doesnt look like a general knowledge question")
             return False
+        if self.voc_match(utterance, "Alerts", lang):
+            LOG.debug("utterance has 'alerts' keywords, doesnt look like a general knowledge question")
+            return False
         if self.voc_match(utterance, "Play", lang):
             LOG.debug("utterance has 'playback' keywords, doesnt look like a general knowledge question")
             return False
