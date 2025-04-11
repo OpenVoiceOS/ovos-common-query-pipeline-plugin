@@ -2,6 +2,18 @@
   "Weather.voc": [
     "tiempo"
   ],
+  "Alerts.voc": [
+    "alerta",
+    "alertas",
+    "temporizador",
+    "temporizadores",
+    "recordatorio",
+    "recordatorios",
+    "alarma",
+    "alarmas",
+    "despiértame",
+    "haz que me despierte"
+  ],
   "QuestionWord.voc": [
     "quien",
     "qué",

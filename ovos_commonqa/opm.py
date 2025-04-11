@@ -98,9 +98,15 @@ class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
         if len(utterance.split(" ")) < 3:
             LOG.debug("utterance has less than 3 words, doesnt look like a question")
             return False
-        # skip utterances meant for common play
+        # skip utterances meant for common play / weather / other known conflicts
+        if self.voc_match(utterance, "MiscBlacklist", lang):
+            LOG.debug("utterance has 'blacklist' keywords, doesnt look like a general knowledge question")
+            return False
         if self.voc_match(utterance, "Weather", lang):
             LOG.debug("utterance has 'weather' keywords, doesnt look like a general knowledge question")
+            return False
+        if self.voc_match(utterance, "Alerts", lang):
+            LOG.debug("utterance has 'alerts' keywords, doesnt look like a general knowledge question")
             return False
         if self.voc_match(utterance, "Play", lang):
             LOG.debug("utterance has 'playback' keywords, doesnt look like a general knowledge question")
