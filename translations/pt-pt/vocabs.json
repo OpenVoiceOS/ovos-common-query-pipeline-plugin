@@ -3,6 +3,18 @@
     "(tempo|clima)",
     "(metereologia|metereológica)"
   ],
+  "Alerts.voc": [
+    "alerta",
+    "alertas",
+    "temporizador",
+    "temporizadores",
+    "lembrete",
+    "lembretes",
+    "alarme",
+    "alarmes",
+    "acorda-me",
+    "acorda-me mais tarde"
+  ],
   "QuestionWord.voc": [
     "quem",
     "(quê|o que|que é)",

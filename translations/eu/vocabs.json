@@ -2,6 +2,18 @@
   "Weather.voc": [
     "eguraldi"
   ],
+  "Alerts.voc": [
+    "alerta",
+    "alertak",
+    "denboragailu",
+    "denboragailuak",
+    "gogorarazpen",
+    "gogorarazpenak",
+    "alarma",
+    "alarmak",
+    "esnarazi",
+    "esnarazi nazazu"
+  ],
   "QuestionWord.voc": [
     "nola",
     "zer",
