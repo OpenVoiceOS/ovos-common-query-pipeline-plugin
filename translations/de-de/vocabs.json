@@ -1,4 +1,27 @@
 {
+  "MiscBlacklist.voc": [
+    "wie viel Uhr\nwie spät",
+    "ist es",
+    "kannst du",
+    "du tust",
+    "Fähigkeiten\nSkills",
+    "heute Nachmittag",
+    "im Augenblick\njetzt",
+    "ist in der Welt passiert",
+    "was ist neu"
+  ],
+  "Alerts.voc": [
+    "Alarm",
+    "Warnungen\nAlarme",
+    "Timer",
+    "Timer",
+    "Erinnerung",
+    "Erinnerungen",
+    "Alarm",
+    "Alarme",
+    "weck mich",
+    "wecke mich auf"
+  ],
   "Weather.voc": [
     "Wetter",
     "Meteorologie"
@@ -29,8 +52,8 @@
   ],
   "Play.voc": [
     "lese",
-    "spiele",
-    "starte",
-    "suche"
+    "lese",
+    "suche",
+    "starte"
   ]
 }
