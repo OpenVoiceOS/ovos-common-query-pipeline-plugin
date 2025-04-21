@@ -1,20 +1,12 @@
 # Changelog
 
-## [1.1.6a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.6a1) (2025-04-11)
+## [1.1.7a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.7a1) (2025-04-21)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.5a1...1.1.6a1)
-
-**Merged pull requests:**
-
-- fix: blacklist some keywords from checking common\_qa [\#51](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/51) ([JarbasAl](https://github.com/JarbasAl))
-
-## [1.1.5a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.5a1) (2025-04-06)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.4...1.1.5a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.6...1.1.7a1)
 
 **Merged pull requests:**
 
-- Missing translation [\#49](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/49) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+- adding missing German translations [\#53](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/53) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
 
 
 
