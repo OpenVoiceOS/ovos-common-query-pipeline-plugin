@@ -1,15 +1,14 @@
 {
-  "Weather.voc": [
-    "temps",
-    "(metereologia|meteorològiques)"
-  ],
   "MiscBlacklist.voc": [
     "sobre el que fa",
     "skills",
     "aquesta tarda",
     "ara mateix",
     "passat al món",
-    "que hi ha de nou"
+    "que hi ha de nou",
+    "ara mateix",
+    "passa al món",
+    "què hi ha de nou"
   ],
   "Alerts.voc": [
     "alerta",
@@ -21,9 +20,11 @@
     "alarma",
     "alarmes",
     "l'alarma",
-    "campaneta",
-    "desperta'm",
-    "fes-me despertar"
+    "campaneta"
+  ],
+  "Weather.voc": [
+    "temps",
+    "(metereologia|meteorològiques)"
   ],
   "QuestionWord.voc": [
     "qui",
@@ -46,12 +47,13 @@
     "on puc trobar",
     "què hi ha sobre",
     "com funciona",
-    "sobre"
+    "sobre",
+    "és"
   ],
   "Play.voc": [
     "reprodueix\nreproduix\nposa",
     "llegeix\nlectura",
-    "[UNUSED]",
+    "cerca",
     "comença\ninicia\ninici"
   ]
 }
