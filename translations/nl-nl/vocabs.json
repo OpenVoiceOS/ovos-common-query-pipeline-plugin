@@ -1,6 +1,30 @@
 {
+  "MiscBlacklist.voc": [
+    "hoe laat",
+    "is het",
+    "kun je",
+    "jij doet",
+    "skills",
+    "vanmiddag",
+    "nu",
+    "gebeurd in de wereld",
+    "is er nieuws"
+  ],
+  "Alerts.voc": [
+    "herinnering",
+    "herinneringen",
+    "timer",
+    "timers",
+    "herinnering",
+    "herinneringen",
+    "wekker",
+    "wekkers",
+    "maak me wakker",
+    "maak me wakker"
+  ],
   "Weather.voc": [
-    "weer"
+    "weer",
+    "meteorologie"
   ],
   "QuestionWord.voc": [
     "wie",
@@ -11,7 +35,20 @@
     "vraag",
     "vertel me over",
     "welke",
-    "van wie"
+    "van wie",
+    "vertel me over",
+    "zoeken naar",
+    "informatie over",
+    "info over",
+    "vind informatie",
+    "vind info",
+    "vind details",
+    "details over",
+    "leg me uit",
+    "kun je",
+    "kan het",
+    "doet het",
+    "is het"
   ],
   "Play.voc": [
     "speel",
