@@ -1,20 +1,12 @@
 # Changelog
 
-## [1.1.7a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.7a2) (2025-06-07)
+## [1.1.8a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.8a1) (2025-06-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.7a1...1.1.7a2)
-
-**Merged pull requests:**
-
-- nl-nl translation [\#57](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/57) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
-
-## [1.1.7a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.7a1) (2025-04-21)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.6...1.1.7a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.7...1.1.8a1)
 
 **Merged pull requests:**
 
-- adding missing German translations [\#53](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/53) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+- fix: compatibility with ovos-workshop 7.X.X and ovos-plugin-manager 1.X.X [\#59](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/59) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
