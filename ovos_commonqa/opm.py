@@ -9,7 +9,7 @@ from ovos_bus_client.message import Message
 from ovos_bus_client.session import SessionManager
 from ovos_config.config import Configuration
 from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
-from ovos_plugin_manager.templates.pipeline import PipelineStageMatcher, IntentHandlerMatch
+from ovos_plugin_manager.templates.pipeline import PipelinePlugin, IntentHandlerMatch
 from ovos_utils import flatten_list
 from ovos_utils.fakebus import FakeBus
 from ovos_utils.lang import standardize_lang_tag
@@ -38,13 +38,13 @@ class Query:
         return max((k.get("conf", 0) for k in self.replies), default=0.0)
 
 
-class CommonQAService(PipelineStageMatcher, OVOSAbstractApplication):
+class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
     def __init__(self, bus: Optional[Union[MessageBusClient, FakeBus]] = None,
                  config: Optional[Dict] = None):
         OVOSAbstractApplication.__init__(
             self, bus=bus, skill_id="common_query.openvoiceos",
             resources_dir=f"{dirname(__file__)}")
-        PipelineStageMatcher.__init__(self, bus, config)
+        PipelinePlugin.__init__(self, bus, config)
         self.active_queries: Dict[str, Query] = dict()
 
         self.common_query_skills = []
