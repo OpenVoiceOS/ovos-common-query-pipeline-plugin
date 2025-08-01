@@ -1,8 +1,8 @@
 {
   "MiscBlacklist.voc": [
     "que horas",
-    null,
-    null,
+    "é",
+    "(você) (pode|poderia)",
     "você faz",
     "habilidades",
     "esta tarde",
@@ -37,23 +37,23 @@
     "onde",
     "pergunta",
     "conte-me sobre",
-    null,
+    "(procurar|procure|pesquise)",
     "informações sobre",
     "informações sobre",
-    null,
-    null,
-    null,
+    "(encontrar|encontre) informações",
+    "(encontrar|encontre) informações",
+    "(encontrar|encontre) detalhes",
     "detalhes sobre",
-    null,
-    null,
-    null,
-    null,
-    null
+    "(explicar|explique)",
+    "(você) (pode|poderia)",
+    "pode",
+    "faz",
+    "é"
   ],
   "Play.voc": [
-    null,
+    "(toque|reproduza)",
     "leia",
-    null,
-    null
+    "(procure|pesquise)",
+    "inicie"
   ]
 }
