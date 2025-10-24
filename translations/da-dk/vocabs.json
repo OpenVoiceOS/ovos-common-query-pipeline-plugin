@@ -1,30 +1,30 @@
 {
   "MiscBlacklist.voc": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+    "hvad tid",
+    "er det",
+    "kan du",
+    "du gør",
+    "færdigheder",
+    "i eftermiddag",
+    "lige nu",
+    "sket i verden",
+    "hvad er nyt"
   ],
   "Alerts.voc": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    "alert",
+    "alarmer",
+    "timer",
+    "timere",
+    "påmindelse",
+    "påmindelser",
+    "alarm",
+    "alarmer",
     "væk mig",
     "væk mig"
   ],
   "Weather.voc": [
     "vejrret",
-    null
+    "meteorologi"
   ],
   "QuestionWord.voc": [
     "hvem",
@@ -38,17 +38,17 @@
     "spørgsmål",
     "fortæl mig om",
     "søg efter",
-    null,
+    "oplysninger om",
     "info omkring",
     "find information",
     "find info",
     "find detaljer",
-    null,
+    "detaljer om",
     "forklar",
-    null,
-    null,
-    null,
-    null
+    "kan du",
+    "kan det",
+    "gør det",
+    "er det"
   ],
   "Play.voc": [
     "spil",
