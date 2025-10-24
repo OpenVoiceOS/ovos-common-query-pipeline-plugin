@@ -1,6 +1,30 @@
 {
+  "MiscBlacklist.voc": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "Alerts.voc": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "væk mig",
+    "væk mig"
+  ],
   "Weather.voc": [
-    "vejr"
+    "vejrret",
+    null
   ],
   "QuestionWord.voc": [
     "hvem",
@@ -8,10 +32,23 @@
     "hvordan",
     "hvorfor",
     "hvornår",
+    "(hvilken|hvilke)",
+    "fortæl mig om",
+    "hvor",
     "spørgsmål",
     "fortæl mig om",
-    "hvilke",
-    "hvis"
+    "søg efter",
+    null,
+    "info omkring",
+    "find information",
+    "find info",
+    "find detaljer",
+    null,
+    "forklar",
+    null,
+    null,
+    null,
+    null
   ],
   "Play.voc": [
     "spil",
