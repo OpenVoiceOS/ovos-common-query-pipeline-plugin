@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.9a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a2) (2025-10-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a1...1.1.9a2)
+
+**Merged pull requests:**
+
+- es-es/translate [\#64](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/64) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+- da-dk/translate [\#63](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/63) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+
 ## [1.1.9a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a1) (2025-08-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.8...1.1.9a1)
