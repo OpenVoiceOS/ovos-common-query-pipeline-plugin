@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.9a4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a4) (2025-11-05)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a3...1.1.9a4)
+
+**Merged pull requests:**
+
+- Update ovos-plugin-manager version range [\#67](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/67) ([JarbasAl](https://github.com/JarbasAl))
+
+## [1.1.9a3](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a3) (2025-10-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a2...1.1.9a3)
+
 ## [1.1.9a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a2) (2025-10-24)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a1...1.1.9a2)
