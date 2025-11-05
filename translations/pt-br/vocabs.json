@@ -1,19 +1,59 @@
 {
+  "MiscBlacklist.voc": [
+    "que horas",
+    "é",
+    "(você) (pode|poderia)",
+    "você faz",
+    "habilidades",
+    "esta tarde",
+    "agora mesmo",
+    "aconteceu no mundo",
+    "o que há de novo"
+  ],
+  "Alerts.voc": [
+    "alerta",
+    "alertas",
+    "cronômetro",
+    "temporizadores",
+    "lembrete",
+    "lembretes",
+    "alarme",
+    "alarmes",
+    "me acorde",
+    "me acorde"
+  ],
+  "Weather.voc": [
+    "clima",
+    "meteorologia"
+  ],
   "QuestionWord.voc": [
     "quem",
     "o que",
     "como",
     "por que",
     "quando",
+    "qual",
+    "cujo",
+    "onde",
     "pergunta",
     "conte-me sobre",
-    "qual",
-    "cujo"
+    "(procurar|procure|pesquise)",
+    "informações sobre",
+    "informações sobre",
+    "(encontrar|encontre) informações",
+    "(encontrar|encontre) informações",
+    "(encontrar|encontre) detalhes",
+    "detalhes sobre",
+    "(explicar|explique)",
+    "(você) (pode|poderia)",
+    "pode",
+    "faz",
+    "é"
   ],
   "Play.voc": [
-    "inicie",
+    "(toque|reproduza)",
     "leia",
-    "procure",
-    "toque"
+    "(procure|pesquise)",
+    "inicie"
   ]
 }

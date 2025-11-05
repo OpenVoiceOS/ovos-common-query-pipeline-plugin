@@ -1,12 +1,33 @@
 # Changelog
 
-## [1.1.8a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.8a1) (2025-06-08)
+## [1.1.9a4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a4) (2025-11-05)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.7...1.1.8a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a3...1.1.9a4)
 
 **Merged pull requests:**
 
-- fix: compatibility with ovos-workshop 7.X.X and ovos-plugin-manager 1.X.X [\#59](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/59) ([JarbasAl](https://github.com/JarbasAl))
+- Update ovos-plugin-manager version range [\#67](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/67) ([JarbasAl](https://github.com/JarbasAl))
+
+## [1.1.9a3](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a3) (2025-10-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a2...1.1.9a3)
+
+## [1.1.9a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a2) (2025-10-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.9a1...1.1.9a2)
+
+**Merged pull requests:**
+
+- es-es/translate [\#64](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/64) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+- da-dk/translate [\#63](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/63) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+
+## [1.1.9a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.9a1) (2025-08-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.8...1.1.9a1)
+
+**Merged pull requests:**
+
+- pt-br/translate [\#61](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/61) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
 
 
 

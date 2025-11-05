@@ -44,7 +44,7 @@ def required(requirements_file):
 PLUGIN_ENTRY_POINT = 'ovos-common-query-pipeline-plugin=ovos_commonqa.opm:CommonQAService'
 
 setup(
-    name="ovos-common-query-pipeline-plugin",
+    name="ovos_common_query_pipeline_plugin",
     version=get_version(),
     author="JarbasAI",
     description="question handling engine for OVOS",
