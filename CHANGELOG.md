@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.10a4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a4) (2026-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a3...1.1.10a4)
+
+**Merged pull requests:**
+
+- Update actions/setup-python action to v6 [\#75](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/75) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action to v6 [\#74](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/74) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [1.1.10a3](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a3) (2025-12-20)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a2...1.1.10a3)
