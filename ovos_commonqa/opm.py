@@ -50,7 +50,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         self.common_query_skills = []
         self._deprecated_skills = []
 
-        config = config or Configuration().get('intents', {}).get("common_query") or dict()
+        config = config or Configuration().get('intents', {}).get("ovos-common-query-pipeline-plugin") or Configuration().get('intents', {}).get("common_query") or dict()
         self._extension_time = config.get('extension_time') or 1
         CommonQAService._EXTENSION_TIME = self._extension_time
         self._min_wait = config.get('min_response_wait') or 1
