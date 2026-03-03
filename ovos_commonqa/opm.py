@@ -41,7 +41,27 @@ class Query:
 class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
     def __init__(self, bus: Optional[Union[MessageBusClient, FakeBus]] = None,
                  config: Optional[Dict] = None):
-        OVOSAbstractApplication.__init__(
+        """
+                 Initialize CommonQAService, configure runtime options, register bus events, and probe for available common-query skills.
+                 
+                 Parameters:
+                     bus (Optional[MessageBusClient | FakeBus]): Optional message bus client to use for inter-component communication.
+                     config (Optional[Dict]): Optional configuration dictionary; if omitted, configuration is read from the global Configuration under 'intents' -> 'ovos-common-query-pipeline-plugin' (fallback to 'common_query'). Recognized keys include:
+                         - extension_time: seconds to extend query timeout when a skill reports it is still searching.
+                         - min_response_wait: minimum time to wait for responses before evaluating.
+                         - max_response_wait: maximum time to wait for responses (regardless of extensions).
+                         - min_self_confidence: minimum confidence required for a skill's self-reported score to be considered.
+                         - min_reranker_score: minimum reranker score required for reranker results to be considered.
+                         - reranker: plugin name for an optional reranker implementation.
+                         - ignore_skill_scores: when true and a reranker is available, skill score ordering may be ignored in favor of reranker output.
+                 
+                 Side effects:
+                     - Initializes base application and pipeline plugin state.
+                     - Loads an optional reranker plugin if configured.
+                     - Registers handlers for 'question:query.response', 'common_query.question', and 'ovos.common_query.pong' bus events.
+                     - Emits an 'ovos.common_query.ping' message to discover already-loaded common-query skills.
+                 """
+                 OVOSAbstractApplication.__init__(
             self, bus=bus, skill_id="common_query.openvoiceos",
             resources_dir=f"{dirname(__file__)}")
         PipelinePlugin.__init__(self, bus, config)
