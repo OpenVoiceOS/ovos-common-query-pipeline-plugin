@@ -1,4 +1,26 @@
 {
+  "Alerts.voc": [
+    "alarme",
+    "alarmes",
+    "alerte",
+    "alertes",
+    "minuteur",
+    "minuteurs",
+    "rappel",
+    "rappels",
+    "réveille-moi"
+  ],
+  "MiscBlacklist.voc": [
+    "cet après-midi",
+    "compétences",
+    "en ce moment",
+    "est-ce",
+    "peux-tu",
+    "quelle heure",
+    "quoi de neuf",
+    "que sais-tu faire",
+    "tu sais faire"
+  ],
   "Weather.voc": [
     "temps",
     "météorologie"
