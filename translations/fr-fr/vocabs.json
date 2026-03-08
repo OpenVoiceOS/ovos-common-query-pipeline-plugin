@@ -12,47 +12,46 @@
   ],
   "MiscBlacklist.voc": [
     "cet après-midi",
-    "compétences",
     "en ce moment",
-    "est-ce",
     "peux-tu",
+    "que peux-tu faire",
+    "que sais-tu faire",
+    "quelles sont tes capacités",
+    "quelles sont tes compétences",
     "quelle heure",
     "quoi de neuf",
-    "que sais-tu faire",
     "tu sais faire"
   ],
   "Weather.voc": [
-    "temps",
-    "météorologie"
+    "météo",
+    "météorologie",
+    "temps qu'il fait"
   ],
   "QuestionWord.voc": [
     "qui",
-    "quel",
+    "quoi",
+    "quand",
+    "où",
     "comment",
     "pourquoi",
-    "quand",
-    "qu'est-ce que",
-    "dis m'en plus au sujet",
     "quel",
-    "dont",
-    "Parle-moi de",
-    "Rechercher",
+    "quelle",
+    "quels",
+    "quelles",
+    "qu'est-ce que",
+    "parle-moi de",
+    "donne-moi des informations sur",
     "informations sur",
-    "informations sur",
-    "trouve des informations",
-    "trouve des informations",
-    "trouve les détails",
     "détails sur",
-    "expliquer",
-    "peux-tu",
-    "est-ce possible",
-    "est-ce que ça",
-    "est-ce que c'est"
+    "explique",
+    "cherche des informations sur",
+    "cherche des détails sur"
   ],
   "Play.voc": [
     "cherche",
     "démarre",
     "joue",
+    "lance",
     "lis"
   ]
 }
