@@ -11,21 +11,19 @@
     "réveille-moi"
   ],
   "MiscBlacklist.voc": [
-    "cet après-midi",
-    "en ce moment",
-    "peux-tu",
     "que peux-tu faire",
     "que sais-tu faire",
     "quelles sont tes capacités",
     "quelles sont tes compétences",
-    "quelle heure",
+    "quelles compétences sont disponibles",
     "quoi de neuf",
     "tu sais faire"
   ],
   "Weather.voc": [
-    "météo",
-    "météorologie",
-    "temps qu'il fait"
+    "quelle est la météo",
+    "quel temps fait-il",
+    "météo actuelle",
+    "prévisions météo"
   ],
   "QuestionWord.voc": [
     "qui",
