@@ -1,20 +1,28 @@
 # Changelog
 
+## [1.1.12a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a1) (2026-04-03)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.11a1...1.1.12a1)
+
+**Merged pull requests:**
+
+- Complete French common query vocab [\#82](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/82) ([goldyfruit](https://github.com/goldyfruit))
+
 ## [1.1.11a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.11a1) (2026-03-03)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a5...1.1.11a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a4...1.1.11a1)
 
 **Merged pull requests:**
 
 - fix: mycroft.conf key [\#81](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/81) ([JarbasAl](https://github.com/JarbasAl))
 
-## [1.1.10a5](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a5) (2026-01-23)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a4...1.1.10a5)
-
 ## [1.1.10a4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a4) (2026-01-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a3...1.1.10a4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a5...1.1.10a4)
+
+## [1.1.10a5](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a5) (2026-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a3...1.1.10a5)
 
 **Merged pull requests:**
 
