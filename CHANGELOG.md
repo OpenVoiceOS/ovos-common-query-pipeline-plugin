@@ -1,11 +1,12 @@
 # Changelog
 
-## [1.1.12a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a1) (2026-04-03)
+## [1.1.12a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a2) (2026-04-09)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.11a1...1.1.12a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.11a1...1.1.12a2)
 
 **Merged pull requests:**
 
+- chore\(ovos\_common\_query\_pipeline\_plugin\): allow ovos-workshop\<9.0.0 [\#85](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/85) ([JarbasAl](https://github.com/JarbasAl))
 - Complete French common query vocab [\#82](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/82) ([goldyfruit](https://github.com/goldyfruit))
 
 ## [1.1.11a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.11a1) (2026-03-03)
