@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.12a3](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a3) (2026-04-12)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.12a2...1.1.12a3)
+
+**Merged pull requests:**
+
+- gl/translate [\#56](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/56) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+- Update Catalan strings [\#55](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/55) ([gitlocalize-app[bot]](https://github.com/apps/gitlocalize-app))
+
 ## [1.1.12a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a2) (2026-04-09)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.11a1...1.1.12a2)
@@ -11,19 +20,19 @@
 
 ## [1.1.11a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.11a1) (2026-03-03)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a4...1.1.11a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a5...1.1.11a1)
 
 **Merged pull requests:**
 
 - fix: mycroft.conf key [\#81](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/81) ([JarbasAl](https://github.com/JarbasAl))
 
-## [1.1.10a4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a4) (2026-01-23)
-
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a5...1.1.10a4)
-
 ## [1.1.10a5](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a5) (2026-01-23)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a3...1.1.10a5)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a4...1.1.10a5)
+
+## [1.1.10a4](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.10a4) (2026-01-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.10a3...1.1.10a4)
 
 **Merged pull requests:**
 
