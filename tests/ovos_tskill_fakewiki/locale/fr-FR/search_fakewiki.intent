@@ -1,9 +1,9 @@
-cherche dans le wiki {query}
-cherche le wiki pour {query}
-demande au wiki {query}
+cherche {query} dans le wiki
+cherche {query} sur le wiki
+demande au wiki ce qu'il sait sur {query}
 demande au wiki à propos de {query}
 que dit le wiki à propos de {query}
 que dit le wiki sur {query}
-recherche dans le wiki {query}
-recherche le wiki pour {query}
-recherche wiki sur {query}
+qu'est-ce que le wiki dit sur {query}
+recherche {query} dans le wiki
+recherche {query} sur le wiki
