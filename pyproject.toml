@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovos_common_query_pipeline_plugin"
+dynamic = ["version"]
+description = "question handling engine for OVOS"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "JarbasAi", email = "jarbasai@mailfence.com"}
+]
+keywords = ["natural language processing"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Text Processing :: Linguistic",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "ovos-workshop>=8.0.0,<9.0.0",
+    "ovos-plugin-manager>=2.1.0,<3.0.0",
+    "ovos-bus-client<3.0.0",
+    "ovos-config",
+    "ovos-utils>=0.3.4,<1.0.0",
+]
+
+[project.optional-dependencies]
+reranker = ["ovos-flashrank-reranker-plugin"]
+test = [
+    "coveralls>=1.8.2",
+    "flake8>=3.7.9",
+    "pytest>=5.2.4",
+    "pytest-cov>=2.8.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin"
+
+[project.entry-points."opm.pipeline"]
+"ovos-common-query-pipeline-plugin" = "ovos_commonqa.opm:CommonQAService"
+
+[tool.setuptools.dynamic]
+version = {attr = "ovos_commonqa.version.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ovos_commonqa*"]
+
+[tool.setuptools.package-data]
+ovos_commonqa = [
+    "*.json",
+    "locale/**/*",
+]
