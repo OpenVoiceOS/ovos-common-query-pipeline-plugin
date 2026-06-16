@@ -13,5 +13,6 @@ jobs:
       python_version: '3.11'
       coverage_source: 'ovos_commonqa'
       test_path: 'tests'
+      pre_install_pip: '-r tests/requirements.txt'
       install_extras: '.[test]'
       min_coverage: 0
