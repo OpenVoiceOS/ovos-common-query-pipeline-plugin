@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.12a5](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a5) (2026-06-16)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.12a3...1.1.12a5)
+
+**Merged pull requests:**
+
+- chore: add missing shared CI workflows [\#88](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/88) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.1.12a3](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a3) (2026-04-12)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.12a2...1.1.12a3)
