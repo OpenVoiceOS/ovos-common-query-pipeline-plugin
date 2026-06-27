@@ -208,7 +208,10 @@ class CommonQAService(PipelinePlugin):
                       timeout_time=time.time() + self._max_time,
                       responses_gathered=Event(), completed=Event(),
                       answered=False,
-                      queried_skills=[s for s in sess.blacklisted_skills
+                      # ovos-bus-client>=2.4 may carry None for omitted session
+                      # collections (OVOS-SESSION-1 omission rule); guard before
+                      # iterating or membership-testing them.
+                      queried_skills=[s for s in (sess.blacklisted_skills or [])
                                       if s in self.common_query_skills])  # dont wait for these
         assert query.responses_gathered.is_set() is False
         assert query.completed.is_set() is False
@@ -248,7 +251,7 @@ class CommonQAService(PipelinePlugin):
         answer = message.data.get('answer')
 
         sess = SessionManager.get(message)
-        if skill_id in sess.blacklisted_skills:
+        if skill_id in (sess.blacklisted_skills or []):
             LOG.debug(f"ignoring match, skill_id '{skill_id}' blacklisted by Session '{sess.session_id}'")
             return
 
@@ -308,7 +311,7 @@ class CommonQAService(PipelinePlugin):
             if response['conf'] < self._min_self_confidence:
                 LOG.debug(f"Discarding {response['skill_id']} low confidence answer: {response['conf']} - {response['answer']}")
                 continue
-            if response["skill_id"] in sess.blacklisted_skills:
+            if response["skill_id"] in (sess.blacklisted_skills or []):
                 continue
             if not self.ignore_scores:
                 if not best or response['conf'] > best['conf']:
