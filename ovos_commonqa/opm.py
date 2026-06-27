@@ -12,10 +12,10 @@ from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
 from ovos_plugin_manager.templates.pipeline import PipelinePlugin, IntentHandlerMatch
 from ovos_spec_tools import voc_match
 from ovos_utils import flatten_list
+from ovos_utils.events import EventContainer, create_wrapper
 from ovos_utils.fakebus import FakeBus
 from ovos_utils.lang import standardize_lang_tag
 from ovos_utils.log import LOG
-from ovos_workshop.app import OVOSAbstractApplication
 
 # .voc resources shipped with this plugin (locale/<lang>/<name>.voc).
 # Matched via ovos-spec-tools voc_match (OVOS-INTENT-2 §4.3 whole-word semantics)
@@ -44,7 +44,7 @@ class Query:
         return max((k.get("conf", 0) for k in self.replies), default=0.0)
 
 
-class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
+class CommonQAService(PipelinePlugin):
     def __init__(self, bus: Optional[Union[MessageBusClient, FakeBus]] = None,
                  config: Optional[Dict] = None):
         """
@@ -62,15 +62,16 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
                 - ignore_skill_scores: when true and a reranker is available, skill score ordering may be ignored in favor of reranker output.
         
         Side effects:
-            - Initializes base application and pipeline plugin state.
+            - Initializes pipeline plugin state and bus-event tracking.
             - Loads an optional reranker plugin if configured.
             - Registers handlers for 'question:query.response', 'common_query.question', and 'ovos.common_query.pong' bus events.
             - Emits an 'ovos.common_query.ping' message to discover already-loaded common-query skills.
         """
-        OVOSAbstractApplication.__init__(
-            self, bus=bus, skill_id="common_query.openvoiceos",
-            resources_dir=f"{dirname(__file__)}")
         PipelinePlugin.__init__(self, bus, config)
+        self.skill_id = "common_query.openvoiceos"
+        # tracks bus handlers so they can be unregistered on shutdown,
+        # replacing ovos-workshop's add_event/default_shutdown bookkeeping
+        self.events = EventContainer(self.bus)
         self.active_queries: Dict[str, Query] = dict()
 
         self.common_query_skills = []
@@ -101,6 +102,20 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         self.add_event('common_query.question', self.handle_question)
         self.add_event('ovos.common_query.pong', self.handle_skill_pong)
         self.bus.emit(Message("ovos.common_query.ping"))  # gather any skills that already loaded
+
+    def add_event(self, name: str, handler):
+        """
+        Register a bus handler, wrapping it for exception-safe execution and
+        tracking it for cleanup on shutdown. Mirrors ovos-workshop's add_event
+        without depending on the skills framework.
+        @param name: Message.msg_type to listen for
+        @param handler: callback invoked with the Message
+        """
+        wrapper = create_wrapper(handler, self.skill_id,
+                                 on_start=None, on_end=None,
+                                 on_error=lambda e: LOG.exception(
+                                     f"error in {name} handler: {e}"))
+        self.events.add(name, wrapper)
 
     def handle_skill_pong(self, message: Message):
         """ track running common query skills """
@@ -198,7 +213,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         assert query.responses_gathered.is_set() is False
         assert query.completed.is_set() is False
         self.active_queries[sess.session_id] = query
-        self.enclosure.mouth_think()
+        self.bus.emit(message.forward("enclosure.mouth.think"))
 
         LOG.info(f"Searching for '{utt}' with max search time: {self._max_time}s")
         # Send the query to anyone listening for them
@@ -283,7 +298,7 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         search_phrase = message.data.get('phrase', "")
         if query.extensions:
             query.extensions = []
-        self.enclosure.mouth_reset()
+        self.bus.emit(message.forward("enclosure.mouth.reset"))
 
         # Look at any replies that arrived before the timeout
         # Find response(s) with the highest confidence
@@ -352,4 +367,4 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
         query.completed.set()
 
     def shutdown(self):
-        self.default_shutdown()  # remove events registered via self.add_event
+        self.events.clear()  # remove events registered via self.add_event

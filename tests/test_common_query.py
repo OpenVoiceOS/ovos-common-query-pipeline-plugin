@@ -25,8 +25,6 @@ class TestCommonQuery(unittest.TestCase):
         self.assertEqual(self.cc.bus, self.bus)
         self.assertIsInstance(self.cc.skill_id, str)
         self.assertIsInstance(self.cc.active_queries, dict)
-        self.assertEqual(self.cc.enclosure.bus, self.bus)
-        self.assertEqual(self.cc.enclosure.skill_id, self.cc.skill_id)
         self.assertEqual(len(self.bus.ee.listeners("question:query.response")),
                          1)
         self.assertEqual(len(self.bus.ee.listeners("common_query.question")), 1)
