@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.13a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.13a1) (2026-06-27)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.12a5...1.1.13a1)
+
+**Merged pull requests:**
+
+- refactor: decouple .voc matching from ovos-workshop \(ovos-spec-tools voc\_match\) [\#90](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/90) ([JarbasAl](https://github.com/JarbasAl))
+- \[codex\] Add fr-FR fakewiki locale [\#86](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/86) ([goldyfruit](https://github.com/goldyfruit))
+
 ## [1.1.12a5](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.12a5) (2026-06-16)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.12a3...1.1.12a5)
