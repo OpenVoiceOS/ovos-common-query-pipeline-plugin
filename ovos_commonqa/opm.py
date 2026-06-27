@@ -1,6 +1,6 @@
 import time
 from dataclasses import dataclass
-from os.path import dirname
+from os.path import dirname, join
 from threading import Event
 from typing import Dict, Optional, List, Union, Any, Tuple
 
@@ -10,11 +10,17 @@ from ovos_bus_client.session import SessionManager
 from ovos_config.config import Configuration
 from ovos_plugin_manager.solvers import find_multiple_choice_solver_plugins
 from ovos_plugin_manager.templates.pipeline import PipelinePlugin, IntentHandlerMatch
+from ovos_spec_tools import voc_match
 from ovos_utils import flatten_list
 from ovos_utils.fakebus import FakeBus
 from ovos_utils.lang import standardize_lang_tag
 from ovos_utils.log import LOG
 from ovos_workshop.app import OVOSAbstractApplication
+
+# .voc resources shipped with this plugin (locale/<lang>/<name>.voc).
+# Matched via ovos-spec-tools voc_match (OVOS-INTENT-2 §4.3 whole-word semantics)
+# instead of reaching into ovos-workshop's skill voc_match.
+LOCALE_DIR = join(dirname(__file__), "locale")
 
 
 @dataclass
@@ -120,20 +126,20 @@ class CommonQAService(PipelinePlugin, OVOSAbstractApplication):
             LOG.debug("utterance has less than 3 words, doesnt look like a question")
             return False
         # skip utterances meant for common play / weather / other known conflicts
-        if self.voc_match(utterance, "MiscBlacklist", lang):
+        if voc_match(utterance, "MiscBlacklist", lang, locale=LOCALE_DIR):
             LOG.debug("utterance has 'blacklist' keywords, doesnt look like a general knowledge question")
             return False
-        if self.voc_match(utterance, "Weather", lang):
+        if voc_match(utterance, "Weather", lang, locale=LOCALE_DIR):
             LOG.debug("utterance has 'weather' keywords, doesnt look like a general knowledge question")
             return False
-        if self.voc_match(utterance, "Alerts", lang):
+        if voc_match(utterance, "Alerts", lang, locale=LOCALE_DIR):
             LOG.debug("utterance has 'alerts' keywords, doesnt look like a general knowledge question")
             return False
-        if self.voc_match(utterance, "Play", lang):
+        if voc_match(utterance, "Play", lang, locale=LOCALE_DIR):
             LOG.debug("utterance has 'playback' keywords, doesnt look like a general knowledge question")
             return False
         # require a "question word"
-        return self.voc_match(utterance, "QuestionWord", lang)
+        return voc_match(utterance, "QuestionWord", lang, locale=LOCALE_DIR)
 
     def match(self, utterances: List[str], lang: str, message: Message) -> Optional[IntentHandlerMatch]:
         """
