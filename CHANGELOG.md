@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.14a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.14a1) (2026-06-27)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.13a1...1.1.14a1)
+
+**Merged pull requests:**
+
+- fix: guard None session blacklists under ovos-bus-client\>=2.4 [\#92](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/92) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.1.13a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.13a1) (2026-06-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.12a5...1.1.13a1)
