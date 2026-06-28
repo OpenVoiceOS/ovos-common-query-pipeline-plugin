@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.15a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.15a1) (2026-06-28)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.14a1...1.1.15a1)
+
+**Merged pull requests:**
+
+- fix: lift ovos-spec-tools upper bound \(spec-tools 1.x\) [\#94](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/94) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.1.14a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.14a1) (2026-06-27)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.13a1...1.1.14a1)
