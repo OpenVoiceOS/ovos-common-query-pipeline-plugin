@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.15a2](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.15a2) (2026-08-30)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.15a1...1.1.15a2)
+
+**Merged pull requests:**
+
+- translate\(kab\): update Play.voc [\#97](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/97) ([ovos-localize[bot]](https://github.com/apps/ovos-localize))
+
 ## [1.1.15a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.15a1) (2026-06-28)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.14a1...1.1.15a1)
