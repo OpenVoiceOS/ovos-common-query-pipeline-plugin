@@ -17,7 +17,7 @@ setup(
     package_data={'ovos_tskill_fakewiki': ['locale/*']},
     packages=['ovos_tskill_fakewiki'],
     include_package_data=True,
-    install_requires=["ovos-workshop"],
+    install_requires=["ovos-bus-client", "ovos-utils"],
     keywords='ovos skill plugin',
     entry_points={'ovos.plugin.skill': PLUGIN_ENTRY_POINT}
 )
