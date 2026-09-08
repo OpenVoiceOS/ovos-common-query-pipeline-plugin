@@ -160,3 +160,34 @@ class TestCommonQuery(unittest.TestCase):
             if "session" in msg.get("context", {}):
                 msg["context"].pop("session")  # simplify test comparisons
             self.assertEqual(msg, m, f"idx={ctr}|emitted={m}")
+
+    def test_response_not_called_on_dispatch_topic(self):
+        """OVOS-MSG-1 §5.3: 'T MUST NOT contain a `:`. A dispatch topic
+        (§2.1.1) has no `.response` counterpart ... the answering
+        component names the answering topic explicitly and derives via
+        `reply` instead.' Both the pipeline (opm.py) and the test fixture
+        (FakeWikiSkill) answer 'question:query', a dispatch topic, and
+        MUST NOT call `.response()` on it -- a conforming `Message.response`
+        raises `ValueError` there (ovos-spec-tools#143). Patch in that
+        guard and run the same end-to-end query flow as
+        test_common_query_events to prove neither call site still hits it."""
+        from unittest.mock import patch
+        from ovos_bus_client.message import Message
+
+        def guarded_response(self, data=None, context=None):
+            if ":" in self.msg_type:
+                raise ValueError(
+                    f"{self.msg_type!r} is a dispatch topic (contains "
+                    "':') -- it has no '.response' counterpart (§5.3)")
+            return self.reply(self.msg_type + ".response", data, context)
+
+        utt = "what is the speed of light"
+        with patch.object(Message, "response", guarded_response):
+            match = self.cc.match([utt], "en-US",
+                                  Message("recognizer_loop:utterance",
+                                         {"utterances": [utt],
+                                          "lang": "en-US"}))
+
+        self.assertIsNotNone(match)
+        self.assertEqual(match.skill_id, "wiki.test")
+        self.assertEqual(match.match_data["answer"], "answer 1")

@@ -43,11 +43,16 @@ class FakeWikiSkill:
     def handle_query_phrase(self, message):
         """Mirror CommonQuerySkill.__handle_question_query bus output."""
         search_phrase = message.data["phrase"]
+        # `message.msg_type` is `question:query`, a dispatch topic
+        # (contains `:`), so OVOS-MSG-1 §5.3 forbids the `.response`
+        # shorthand here; the answering topic is named explicitly via
+        # `reply` instead, reproducing what `response()` computes for it.
         # signal that we are searching
-        self.bus.emit(message.response({"phrase": search_phrase,
-                                        "skill_id": self.skill_id,
-                                        "searching": True},
-                                       {"skill_id": self.skill_id}))
+        self.bus.emit(message.reply(message.msg_type + ".response",
+                                    {"phrase": search_phrase,
+                                     "skill_id": self.skill_id,
+                                     "searching": True},
+                                    {"skill_id": self.skill_id}))
 
         answer = self.ask_the_wiki(search_phrase)[0]
         # context for follow up questions ("tell me more"); the workshop skill
@@ -64,13 +69,14 @@ class FakeWikiSkill:
         callback = {"query": search_phrase, "answer": answer}
         # GENERAL match level (0.5) + length bonus → 0.74, matching the
         # workshop skill's confidence calculation for this phrase/answer
-        self.bus.emit(message.response({"phrase": search_phrase,
-                                        "skill_id": self.skill_id,
-                                        "answer": answer,
-                                        "handles_speech": True,
-                                        "callback_data": callback,
-                                        "conf": 0.74},
-                                       {"skill_id": self.skill_id}))
+        self.bus.emit(message.reply(message.msg_type + ".response",
+                                    {"phrase": search_phrase,
+                                     "skill_id": self.skill_id,
+                                     "answer": answer,
+                                     "handles_speech": True,
+                                     "callback_data": callback,
+                                     "conf": 0.74},
+                                    {"skill_id": self.skill_id}))
 
 
 def create_skill():
