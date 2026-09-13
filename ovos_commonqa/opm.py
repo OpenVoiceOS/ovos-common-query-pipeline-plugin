@@ -267,9 +267,11 @@ class CommonQAService(PipelinePlugin):
         # Manage requests for time to complete searches
         if searching:
             LOG.debug(f"{skill_id} is searching")
-            # request extending the timeout by EXTENSION_TIME, never past the
-            # hard ceiling (OVOS-COMMON-QUERY-1 §7.2)
-            query.timeout_time = min(time.time() + self._extension_time,
+            # request extending the timeout by EXTENSION_TIME. OVOS-COMMON-QUERY-1
+            # §7.2: a searching skill is still outstanding, so an extension
+            # never moves the deadline earlier, and never past the hard ceiling
+            query.timeout_time = min(max(query.timeout_time,
+                                         time.time() + self._extension_time),
                                      query.query_time + self._max_time)
             # TODO: Perhaps block multiple extensions?
             if skill_id not in query.extensions:
