@@ -227,9 +227,12 @@ class CommonQAService(PipelinePlugin):
         timeout_msg = msg.response(msg.data)
         self.bus.emit(msg)
 
+        # OVOS-COMMON-QUERY-1 §7.2: the ceiling is the absolute bound, whatever
+        # a late extension wrote to timeout_time
+        ceiling = query.query_time + self._max_time
         while not query.responses_gathered.wait(0.1):
             # forcefully timeout if search is still going
-            if time.time() > query.timeout_time:
+            if time.time() > min(query.timeout_time, ceiling):
                 if not query.completed.is_set():
                     LOG.debug(f"Session Timeout gathering responses ({query.session_id})")
                     LOG.warning(f"Timed out getting responses for: {query.query}")
@@ -264,8 +267,12 @@ class CommonQAService(PipelinePlugin):
         # Manage requests for time to complete searches
         if searching:
             LOG.debug(f"{skill_id} is searching")
-            # request extending the timeout by EXTENSION_TIME
-            query.timeout_time = time.time() + self._extension_time
+            # request extending the timeout by EXTENSION_TIME. OVOS-COMMON-QUERY-1
+            # §7.2: a searching skill is still outstanding, so an extension
+            # never moves the deadline earlier, and never past the hard ceiling
+            query.timeout_time = min(max(query.timeout_time,
+                                         time.time() + self._extension_time),
+                                     query.query_time + self._max_time)
             # TODO: Perhaps block multiple extensions?
             if skill_id not in query.extensions:
                 query.extensions.append(skill_id)
