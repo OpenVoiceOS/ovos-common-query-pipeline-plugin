@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.16a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.16a1) (2026-09-13)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.15a3...1.1.16a1)
+
+**Merged pull requests:**
+
+- fix: a searching extension never moves the deadline past the ceiling [\#102](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/102) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [1.1.15a3](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.15a3) (2026-09-01)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.15a2...1.1.15a3)
