@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.17a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.17a1) (2026-09-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.16a1...1.1.17a1)
+
+**Merged pull requests:**
+
+- fix: emit question:action from the common\_query.question event path [\#101](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/101) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [1.1.16a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.16a1) (2026-09-13)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.15a3...1.1.16a1)
