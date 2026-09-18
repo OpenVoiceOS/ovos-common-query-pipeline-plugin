@@ -185,8 +185,9 @@ class CommonQAService(PipelinePlugin):
             if self.is_question_like(utterance, lang):
                 message.data["lang"] = lang  # only used for speak method
                 message.data["utterance"] = utterance
-                answered, query = self.handle_question(message)
-                if answered and query.response_confidence >= self.config.get("min_conf", 0.01):
+                answered, query = self.handle_question(message,
+                                                       emit_dispatch=False)
+                if answered and self._meets_min_conf(query):
                     query.callback_data["conf"] = query.response_confidence
                     old_style = query.selected_skill in self._deprecated_skills
                     match = IntentHandlerMatch(match_type='question:action' if old_style else f'question:action.{query.selected_skill}',
@@ -196,9 +197,23 @@ class CommonQAService(PipelinePlugin):
                 break
         return match
 
-    def handle_question(self, message: Message) -> Tuple[bool, Query]:
+    def _meets_min_conf(self, query: Query) -> bool:
+        """``min_conf`` floor on a selected answer, shared by ``match()`` and
+        the ``common_query.question`` event path so both speak the same
+        answers."""
+        return query.response_confidence >= self.config.get("min_conf", 0.01)
+
+    def handle_question(self, message: Message,
+                        emit_dispatch: bool = True) -> Tuple[bool, Query]:
         """
         Send the phrase to CommonQuerySkills and prepare for handling replies.
+
+        @param emit_dispatch: emit the winning skill's ``question:action``
+            dispatch from ``_query_timeout``. The ``common_query.question``
+            bus event path needs this (a bus handler's return value is
+            discarded); the ``match()`` pipeline stage sets it False because
+            it completes through its returned IntentHandlerMatch instead,
+            and a second emit would make the winning skill speak twice.
         """
         utt = message.data.get('utterance')
         sess = SessionManager.get(message)
@@ -238,7 +253,7 @@ class CommonQAService(PipelinePlugin):
                     LOG.warning(f"Timed out getting responses for: {query.query}")
                 break
 
-        self._query_timeout(timeout_msg)
+        self._query_timeout(timeout_msg, emit_dispatch=emit_dispatch)
         if not query.completed.wait(5):
             raise TimeoutError("Timed out processing responses")
         answered = bool(query.answered)
@@ -294,13 +309,17 @@ class CommonQAService(PipelinePlugin):
                 LOG.debug("All skills answered")
                 query.responses_gathered.set()
 
-    def _query_timeout(self, message: Message):
+    def _query_timeout(self, message: Message, emit_dispatch: bool = True):
         """
         All accepted responses have been provided, either because all skills
         replied or a timeout condition was met. The best response is selected,
-        spoken, and `question:action` is emitted so the associated skill's
+        and `question:action` is emitted so the associated skill's
         handler can perform any additional actions.
         @param message: question:query.response Message with `phrase` data
+        @param emit_dispatch: emit the winning skill's dispatch. Needed on the
+            common_query.question bus event path (a bus handler's return value
+            is discarded); match() completes through its returned
+            IntentHandlerMatch instead and passes False here.
         """
         sess = SessionManager.get(message)
         query = self.active_queries.get(SessionManager.get(message).session_id)
@@ -369,6 +388,25 @@ class CommonQAService(PipelinePlugin):
                 query.selected_skill = best["skill_id"]
                 query.callback_data = {**best, "phrase": search_phrase}
                 query.answered = True
+                # A bus event handler's return value is discarded, so when
+                # handle_question is reached via the common_query.question
+                # event (the match_type a pipeline plugin's special-label map
+                # dispatches), nobody consumes this contest's result unless
+                # the winning skill's dispatch is emitted here. match()
+                # reaches the same selection through its return value and
+                # sets emit_dispatch=False, so both paths complete without
+                # double-dispatching.
+                # The same floor match() applies before it builds its return
+                # value: the two paths must speak the same answers.
+                if emit_dispatch and self._meets_min_conf(query):
+                    old_style = query.selected_skill in self._deprecated_skills
+                    match_type = ('question:action' if old_style
+                                  else f'question:action.{query.selected_skill}')
+                    self.bus.emit(message.reply(
+                        match_type,
+                        data={**query.callback_data,
+                              "conf": query.response_confidence},
+                        context={"skill_id": query.selected_skill}))
             else:
                 LOG.debug("No good answers from skills, not answering question")
                 query.answered = False
