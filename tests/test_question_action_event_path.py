@@ -118,7 +118,32 @@ class TestQuestionActionEventPath(unittest.TestCase):
         self.bus.emit(msg)
 
         types = self._emitted_types()
-        self.assertNotIn("question:action.wiki.test", types)
+        # the fake skill is a classic CommonQuerySkill, so the dispatch topic
+        # carries no skill_id suffix: check every question:action topic
+        self.assertEqual([t for t in types if t.startswith("question:action")], [],
+                         f"a dispatch was emitted with no answer; got: {types}")
+
+    def test_event_path_respects_min_conf(self):
+        """The event path applies the same min_conf floor as match(): an
+        answer under the floor is not dispatched on either path. The fake
+        skill answers at confidence 0.74."""
+        cc = CommonQAService(self.bus, config={"min_conf": 0.99})
+        try:
+            msg = Message("common_query.question",
+                          {"utterance": "what is the speed of light"},
+                          {"source": "audio", "destination": "skills",
+                           "skill_id": "common_query.openvoiceos"})
+            self.bus.emitted_msgs.clear()
+            cc.handle_question(msg)
+            types = self._emitted_types()
+            self.assertEqual([t for t in types if t.startswith("question:action")], [],
+                             f"the event path spoke an answer under min_conf; got: {types}")
+            match_msg = Message("recognizer_loop:utterance",
+                                {"utterances": ["what is the speed of light"], "lang": "en-US"})
+            self.assertIsNone(cc.match(["what is the speed of light"], "en-US", match_msg),
+                              "match() must apply the same floor")
+        finally:
+            cc.shutdown()
 
     def test_event_path_teardown_active_queries(self):
         """The event path does not leak an active query entry."""

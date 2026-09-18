@@ -187,7 +187,7 @@ class CommonQAService(PipelinePlugin):
                 message.data["utterance"] = utterance
                 answered, query = self.handle_question(message,
                                                        emit_dispatch=False)
-                if answered and query.response_confidence >= self.config.get("min_conf", 0.01):
+                if answered and self._meets_min_conf(query):
                     query.callback_data["conf"] = query.response_confidence
                     old_style = query.selected_skill in self._deprecated_skills
                     match = IntentHandlerMatch(match_type='question:action' if old_style else f'question:action.{query.selected_skill}',
@@ -196,6 +196,12 @@ class CommonQAService(PipelinePlugin):
                                                utterance=utterance)
                 break
         return match
+
+    def _meets_min_conf(self, query: Query) -> bool:
+        """``min_conf`` floor on a selected answer, shared by ``match()`` and
+        the ``common_query.question`` event path so both speak the same
+        answers."""
+        return query.response_confidence >= self.config.get("min_conf", 0.01)
 
     def handle_question(self, message: Message,
                         emit_dispatch: bool = True) -> Tuple[bool, Query]:
@@ -383,7 +389,9 @@ class CommonQAService(PipelinePlugin):
                 # reaches the same selection through its return value and
                 # sets emit_dispatch=False, so both paths complete without
                 # double-dispatching.
-                if emit_dispatch:
+                # The same floor match() applies before it builds its return
+                # value: the two paths must speak the same answers.
+                if emit_dispatch and self._meets_min_conf(query):
                     old_style = query.selected_skill in self._deprecated_skills
                     match_type = ('question:action' if old_style
                                   else f'question:action.{query.selected_skill}')
