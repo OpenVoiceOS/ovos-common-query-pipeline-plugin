@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.19a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.19a1) (2026-09-23)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.18a1...1.1.19a1)
+
+**Merged pull requests:**
+
+- fix: stop calling Message.response\(\) on the question:query dispatch topic [\#100](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/100) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [1.1.18a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.18a1) (2026-09-23)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.17a1...1.1.18a1)
