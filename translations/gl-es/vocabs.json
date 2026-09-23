@@ -1,6 +1,14 @@
 {
-  "Weather.voc": [
-    "tempo"
+  "MiscBlacklist.voc": [
+    "a que hora",
+    "é",
+    "podes",
+    "podes",
+    "habilidades",
+    "esta tarde",
+    "agora mesmo",
+    "aconteceu no mundo",
+    "(que hai de novo|que novidades hai)"
   ],
   "Alerts.voc": [
     "alerta",
@@ -11,8 +19,12 @@
     "recordatorios",
     "alarma",
     "alarmas",
-    "despiértame",
-    "haz que me despierte"
+    "(espertarme|espértame)",
+    "(espertarme|espértame)"
+  ],
+  "Weather.voc": [
+    "tempo",
+    "(meteoroloxía|meteo)"
   ],
   "QuestionWord.voc": [
     "quen",
@@ -20,10 +32,23 @@
     "como",
     "por que",
     "cando",
-    "pregunta",
-    "fálame (de|sobre)",
     "(cal|cales)",
-    "de quen"
+    "de quen",
+    "(cal|cales)",
+    "pregunta",
+    "cóntame sobre",
+    "(buscar|procurar)",
+    "información sobre",
+    "información sobre",
+    "(atopar|buscar) información",
+    "atopar información",
+    "atopar detalles",
+    "detalles sobre",
+    "explicar",
+    "podes",
+    "pode",
+    "pode",
+    "é"
   ],
   "Play.voc": [
     "reproducir",
