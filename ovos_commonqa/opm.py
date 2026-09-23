@@ -239,7 +239,12 @@ class CommonQAService(PipelinePlugin):
         if "skill_id" not in msg.context:
             msg.context["skill_id"] = self.skill_id
         # Define the timeout_msg here before any responses modify context
-        timeout_msg = msg.response(msg.data)
+        # `msg.msg_type` is `question:query`, a dispatch topic (contains
+        # `:`), so OVOS-MSG-1 §5.3 forbids the `.response` shorthand here
+        # ("MUST NOT contain a `:`" — "a dispatch topic has no `.response`
+        # counterpart"); the answering topic is named explicitly via
+        # `reply` instead, reproducing what `response()` computes for it.
+        timeout_msg = msg.reply(msg.msg_type + ".response", msg.data)
         self.bus.emit(msg)
 
         # OVOS-COMMON-QUERY-1 §7.2: the ceiling is the absolute bound, whatever
