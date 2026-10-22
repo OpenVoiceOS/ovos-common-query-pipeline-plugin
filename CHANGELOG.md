@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.20a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.20a1) (2026-10-22)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.19a1...1.1.20a1)
+
+**Merged pull requests:**
+
+- fix\(deps\): accept ovos-plugin-manager 3 [\#109](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/pull/109) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [1.1.19a1](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/tree/1.1.19a1) (2026-09-23)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin/compare/1.1.18a1...1.1.19a1)
