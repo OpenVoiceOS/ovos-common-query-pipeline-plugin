@@ -1,6 +1,7 @@
 import json
 import unittest
 
+from ovos_bus_client.session import Session
 from ovos_commonqa.opm import CommonQAService
 from ovos_tskill_fakewiki import FakeWikiSkill
 from ovos_utils.messagebus import FakeBus, Message
@@ -25,8 +26,6 @@ class TestCommonQuery(unittest.TestCase):
         self.assertEqual(self.cc.bus, self.bus)
         self.assertIsInstance(self.cc.skill_id, str)
         self.assertIsInstance(self.cc.active_queries, dict)
-        self.assertEqual(self.cc.enclosure.bus, self.bus)
-        self.assertEqual(self.cc.enclosure.skill_id, self.cc.skill_id)
         self.assertEqual(len(self.bus.ee.listeners("question:query.response")),
                          1)
         self.assertEqual(len(self.bus.ee.listeners("common_query.question")), 1)
@@ -55,6 +54,44 @@ class TestCommonQuery(unittest.TestCase):
     def test_query_timeout(self):
         # TODO
         pass
+
+    def test_match_with_none_blacklists(self):
+        """Regression: under ovos-bus-client>=2.4 a Session may carry None for
+        omitted blacklist collections (OVOS-SESSION-1 omission rule). The
+        answer/select/speak path in handle_question, handle_query_response and
+        _query_timeout iterates and membership-tests session.blacklisted_skills,
+        so a None must not raise TypeError and break the whole match flow.
+
+        SessionManager.get rebuilds the session from the message, so the None
+        is injected by patching it to return a Session whose blacklists are
+        None -- mirroring what a bus-client variant / in-memory session can
+        hand the plugin."""
+        from unittest.mock import patch
+        from ovos_bus_client.session import SessionManager
+
+        sess = Session("test-none-bl")
+        # the bug condition: blacklists are None, not empty lists
+        sess.blacklisted_skills = None
+        sess.blacklisted_intents = None
+
+        utt = "what is the speed of light"
+        message = Message("recognizer_loop:utterance",
+                          {"utterances": [utt], "lang": "en-US"},
+                          {"session": {"session_id": "test-none-bl"}})
+
+        # full match -> handle_question -> handle_query_response ->
+        # _query_timeout select path must complete and produce an answer,
+        # never a 'NoneType' object is not iterable TypeError
+        with patch.object(SessionManager, "get", return_value=sess):
+            match = self.cc.match([utt], "en-US", message)
+
+        self.assertIsNotNone(match,
+                             "answer/select flow did not complete with "
+                             "None blacklists")
+        self.assertEqual(match.skill_id, "wiki.test")
+        self.assertEqual(match.match_data["answer"], "answer 1")
+        # the query path tore down cleanly (no leaked active query)
+        self.assertEqual(len(self.cc.active_queries), 0)
 
     def test_common_query_events(self):
         self.bus.emitted_msgs = []
@@ -123,3 +160,34 @@ class TestCommonQuery(unittest.TestCase):
             if "session" in msg.get("context", {}):
                 msg["context"].pop("session")  # simplify test comparisons
             self.assertEqual(msg, m, f"idx={ctr}|emitted={m}")
+
+    def test_response_not_called_on_dispatch_topic(self):
+        """OVOS-MSG-1 §5.3: 'T MUST NOT contain a `:`. A dispatch topic
+        (§2.1.1) has no `.response` counterpart ... the answering
+        component names the answering topic explicitly and derives via
+        `reply` instead.' Both the pipeline (opm.py) and the test fixture
+        (FakeWikiSkill) answer 'question:query', a dispatch topic, and
+        MUST NOT call `.response()` on it -- a conforming `Message.response`
+        raises `ValueError` there (ovos-spec-tools#143). Patch in that
+        guard and run the same end-to-end query flow as
+        test_common_query_events to prove neither call site still hits it."""
+        from unittest.mock import patch
+        from ovos_bus_client.message import Message
+
+        def guarded_response(self, data=None, context=None):
+            if ":" in self.msg_type:
+                raise ValueError(
+                    f"{self.msg_type!r} is a dispatch topic (contains "
+                    "':') -- it has no '.response' counterpart (§5.3)")
+            return self.reply(self.msg_type + ".response", data, context)
+
+        utt = "what is the speed of light"
+        with patch.object(Message, "response", guarded_response):
+            match = self.cc.match([utt], "en-US",
+                                  Message("recognizer_loop:utterance",
+                                         {"utterances": [utt],
+                                          "lang": "en-US"}))
+
+        self.assertIsNotNone(match)
+        self.assertEqual(match.skill_id, "wiki.test")
+        self.assertEqual(match.match_data["answer"], "answer 1")

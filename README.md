@@ -1,30 +1,20 @@
 # OVOS Common Query Framework
 
-The **OVOS Common Query Framework** is designed to answer questions by gathering answers from several skills and selecting the best one
+The OVOS Common Query Framework answers questions. It gathers answers from several skills and picks the best one.
 
-> ⚠️ Common Query will only be as fast as your slowest CommonQuerySkill, latency will vary depending on which skills you install
-
+Common Query is only as fast as the slowest CommonQuerySkill. Latency depends on which skills you install.
 
 ## Features
 
-- **Utterance Query Type Detection**: 🧐:  
-  If the user utterance does not resemble a question (e.g., no "who", "what", "when" keywords), the system will avoid attempting to answer.
-  
-- **Skill Availability Check** 🔧:  
-  If no common query skills are installed, the system will refrain from attempting to respond, ensuring queries are issued only when appropriate skills are available.
-
-- **Improved Answer Selection** 🤖:  
-  A reranker plugin can be integrated to evaluate multiple skill responses and select the most relevant one, ensuring higher-quality answers.
-
-- **Bad Answer Discarding** 🚮:  
-  By integrating a reranker with a minimum score threshold (`min_score`), poor or irrelevant answers are discarded, improving the overall accuracy of responses.
-
-- **Timeout for Late Answers** ⏱️:  
-  The system will stop waiting for answers after 2 seconds. Any response received after this time will be ignored, ensuring an upper time limit for query handling.
+- **Utterance query type detection**: If the user utterance does not resemble a question (for example, it has no "who", "what", or "when"), the system does not try to answer.
+- **Skill availability check**: If no common query skills are installed, the system does not try to respond. It issues queries only when a matching skill is available.
+- **Answer selection**: A reranker plugin can evaluate multiple skill responses and select the most relevant one.
+- **Bad answer discarding**: A reranker with a minimum score threshold (`min_score`) discards poor or irrelevant answers.
+- **Timeout for late answers**: The system stops waiting for answers after 2 seconds. It ignores any response that arrives after this time.
 
 ## Install
 
-This plugin usually ships with ovos-core by default and should not need to be explicitly installed
+This plugin ships with [ovos-core](https://github.com/OpenVoiceOS/ovos-core) by default. You do not need to install it explicitly.
 
 ```bash
 pip install ovos-common-query-pipeline-plugin
@@ -32,10 +22,11 @@ pip install ovos-common-query-pipeline-plugin
 
 ## Configuration
 
-### Reranker (Optional)
-Rerankers, also referred to as **MultipleChoiceSolvers**, are optional and need to be explicitly installed. These are used to rank and select the most relevant response from multiple common query skills (e.g., Wolfram Alpha, Wikipedia).
+### Reranker (optional)
 
-Below is an example configuration to set up a reranker:
+Rerankers, also called MultipleChoiceSolvers, are optional. Install one explicitly to rank and select the most relevant response from multiple common query skills (for example, Wolfram Alpha or Wikipedia).
+
+This example configures a reranker:
 
 ```json
 "intents": {
@@ -50,13 +41,17 @@ Below is an example configuration to set up a reranker:
 }
 ```
 
-### Notes:
-- **Reranker Plugin**: A reranker plugin is optional. You need to install it explicitly for the framework to use it.
-- **Model Choice**: The example uses the `ovos-flashrank-reranker-plugin` with `ms-marco-TinyBERT-L-2-v2` model, but other plugins/models can be specified depending on your use case and performance requirements.
-- **Performance Consideration**: Enabling reranking, particularly on devices with limited resources (e.g., Raspberry Pi), may introduce additional latency.
+Notes:
+- A reranker plugin is optional. Install it explicitly for the framework to use it.
+- The example uses [ovos-flashrank-reranker-plugin](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin) with the `ms-marco-TinyBERT-L-2-v2` model. Other plugins and models work too, depending on your use case and performance needs.
+- Reranking may add latency on resource-constrained devices, such as a Raspberry Pi. Adjust the settings to match the device capabilities and the expected response time.
 
-## Performance Impact
+## Related projects
 
-Be mindful of the performance tradeoffs when enabling rerankers:
-- On resource-constrained devices, such as the Raspberry Pi, reranking models may add extra latency.  
-- Adjust the settings to match the device’s capabilities and the expected response time.
+- [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core) — the assistant this plugin ships with
+- [OpenVoiceOS/ovos-plugin-manager](https://github.com/OpenVoiceOS/ovos-plugin-manager) — loads this plugin as an `opm.pipeline` entry point
+- [OpenVoiceOS/ovos-flashrank-reranker-plugin](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin) — example reranker plugin
+
+## License
+
+Apache-2.0
